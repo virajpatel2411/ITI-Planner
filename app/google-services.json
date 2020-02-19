@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "425288159072",
+    "firebase_url": "https://iti-planner.firebaseio.com",
+    "project_id": "iti-planner",
+    "storage_bucket": "iti-planner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425288159072:android:2f27cf4c53001088f55805",
+        "android_client_info": {
+          "package_name": "royal.com.itiplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425288159072-p3ku0pmus0nk750o47kltaqfh03k2no2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "royal.com.itiplanner",
+            "certificate_hash": "c6a7ff74655ad0d58bfb56368e6758cad13004b5"
+          }
+        },
+        {
+          "client_id": "425288159072-2fl37dl5ctg9ouho0vagvtct1cltthb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpuK2MY10TatNs3YBsrLuMH9oBZoHnshg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425288159072-2fl37dl5ctg9ouho0vagvtct1cltthb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

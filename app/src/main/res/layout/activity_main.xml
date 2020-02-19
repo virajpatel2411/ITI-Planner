@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".MainActivity">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<TextView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="40sp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="8dp"
+    android:id="@+id/txt_login"
+    android:textColor="#000"
+    android:text="Login"></TextView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:src="@drawable/logo"
+        android:id="@+id/img_logo"
+        android:layout_below="@id/txt_login"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edt_email"
+        android:layout_below="@id/img_logo"
+        android:background="@null"
+        android:hint="Email"
+        android:drawableLeft="@drawable/ic_email_black"
+        android:drawableTint="#BCBCC4"
+        android:drawablePadding="10dp"
+        android:textSize="20sp"
+        android:layout_margin="16dp"
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:layout_marginTop="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/view1"
+        android:background="#000"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@+id/edt_email"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edt_password"
+        android:background="@null"
+        android:hint="Password"
+        android:drawableLeft="@drawable/ic_lock"
+        android:drawableTint="#BCBCC4"
+        android:drawablePadding="10dp"
+        android:textSize="20sp"
+        android:inputType="textPassword"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:layout_below="@+id/view1"
+        android:layout_margin="16dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/view2"
+        android:background="#000"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@+id/edt_password"/>
+
+    <Button
+        android:id="@+id/btn_sn"
+        android:gravity="center"
+        android:layout_below="@id/view2"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/bg_border"
+        android:text="Sign In"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:layout_height="wrap_content"
+        ></Button>
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_sn"
+        android:gravity="center"
+        android:layout_below="@id/btn_sn"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
