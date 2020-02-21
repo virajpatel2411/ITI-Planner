@@ -21,7 +21,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="302dp"
         android:src="@drawable/logo"
         android:id="@+id/img_logo"
         android:layout_below="@id/txt_login"
@@ -103,5 +103,34 @@
         android:layout_marginTop="16dp"
         android:layout_height="wrap_content" />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/google_sn"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not a Member?"
+            android:textColor="#000"
+
+            android:layout_marginTop="8dp"
+            ></TextView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:id="@+id/btn_su"
+            android:text="Sign Up"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_border_2"></Button>
+    </LinearLayout>
+
 </RelativeLayout>
+
 </android.support.v4.widget.NestedScrollView>

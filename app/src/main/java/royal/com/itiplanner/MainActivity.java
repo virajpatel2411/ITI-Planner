@@ -1,6 +1,7 @@
 package royal.com.itiplanner;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,12 +11,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText edtEmail,edtPass;
-    Button btnSn;
+    Button btnSn,btnSu;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +30,20 @@ public class MainActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edt_email);
         edtPass = findViewById(R.id.edt_password);
         btnSn = findViewById(R.id.btn_sn);
+        btnSu = findViewById(R.id.btn_su);
+        mAuth = FirebaseAuth.getInstance();
+
+
+        btnSu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SignUpActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
         btnSn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,9 +70,22 @@ public class MainActivity extends AppCompatActivity {
                             !Pattern.matches("[0-9]+$", edtPass.getText().toString()) &&
                             !Pattern.matches("[a-zA-Z]+$", edtPass.getText().toString())
                     ) {
-                        Toast.makeText(MainActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                        finish();
+                        mAuth.signInWithEmailAndPassword(edtEmail.toString(),edtPass.toString()).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful())
+                                {
+                                    Toast.makeText(MainActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                    finish();
+                                }
+                                else
+                                {
+                                    Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
                         break;
                     }
                 }

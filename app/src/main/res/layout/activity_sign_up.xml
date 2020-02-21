@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpActivity"
+    android:background="#fff">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/txt_su"
+            android:textColor="#000"
+            android:text="Sign Up"></TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="320dp"
+            android:src="@drawable/logo"
+            android:id="@+id/img_logo"
+            android:layout_below="@+id/txt_su">
+
+        </ImageView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rel_1"
+            android:layout_below="@+id/img_logo"
+            android:layout_margin="16dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edt_email"
+            android:background="@null"
+            android:hint="Email"
+            android:drawableLeft="@drawable/ic_email_black"
+            android:drawableTint="#585858"
+            android:drawablePadding="10dp"
+            android:textSize="20sp"
+            android:inputType="textEmailAddress"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:layout_marginTop="10dp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:id="@+id/view1"
+            android:background="#585858"
+            android:layout_below="@+id/edt_email"
+            android:layout_marginTop="10dp"/>
+
+
+
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edt_number"
+            android:background="@null"
+            android:hint="Mobile No."
+            android:drawableLeft="@drawable/ic_phone"
+            android:drawableTint="#585858"
+            android:drawablePadding="10dp"
+            android:textSize="20sp"
+            android:inputType="phone"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:layout_below="@+id/view1"
+            android:layout_marginTop="15dp"
+            />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:id="@+id/view3"
+            android:background="#585858"
+            android:layout_below="@+id/edt_number"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edt_password"
+            android:background="@null"
+            android:hint="Password"
+            android:drawableLeft="@drawable/ic_lock"
+            android:drawableTint="#585858"
+            android:drawablePadding="10dp"
+            android:textSize="20sp"
+            android:inputType="textPassword"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:layout_below="@+id/view3"
+            android:layout_marginTop="15dp"
+            />
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:id="@+id/view4"
+            android:background="#585858"
+            android:layout_below="@+id/edt_password"
+            android:layout_marginTop="10dp"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel_1"
+            android:id="@+id/btn_next"
+            android:textColor="#fff"
+            android:textAllCaps="false"
+            android:layout_marginTop="32dp"
+            android:layout_centerHorizontal="true"
+            android:text="Next"
+            android:background="@drawable/bg_border_1"
+            />
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>
