@@ -1,9 +1,10 @@
 package royal.com.itiplanner;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import android.support.annotation.NonNull;
+
 
 import java.util.regex.Pattern;
 
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         btnSu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SignUpActivity.class);
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                             !Pattern.matches("[0-9]+$", edtPass.getText().toString()) &&
                             !Pattern.matches("[a-zA-Z]+$", edtPass.getText().toString())
                     ) {
-                        mAuth.signInWithEmailAndPassword(edtEmail.toString(),edtPass.toString()).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                        mAuth.signInWithEmailAndPassword(edtEmail.getText().toString(),edtPass.getText().toString()).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful())
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 else
                                 {
-                                    Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Login failed. Incorrect details.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
