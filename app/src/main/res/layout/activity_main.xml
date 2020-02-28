@@ -64,7 +64,7 @@
         android:drawablePadding="10dp"
         android:textSize="20sp"
         android:inputType="textPassword"
-        android:imeOptions="actionNext"
+        android:imeOptions="actionGo"
         android:singleLine="true"
         android:layout_below="@+id/view1"
         android:layout_margin="16dp"
@@ -131,6 +131,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_border"></Button>
     </LinearLayout>
+
 
 </RelativeLayout>
 

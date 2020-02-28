@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         edtPass = findViewById(R.id.edt_password);
         btnSn = findViewById(R.id.btn_sn);
         btnSu = findViewById(R.id.btn_su);
+
         mAuth = FirebaseAuth.getInstance();
 
 

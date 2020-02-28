@@ -4,7 +4,16 @@ public class UserModel {
 
     private String email;
     private String mobNo;
-    private String passWaord;
+    private String passWord;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getEmail() {
         return email;
@@ -22,11 +31,11 @@ public class UserModel {
         this.mobNo = mobNo;
     }
 
-    public String getPassWaord() {
-        return passWaord;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public void setPassWaord(String passWaord) {
-        this.passWaord = passWaord;
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 }

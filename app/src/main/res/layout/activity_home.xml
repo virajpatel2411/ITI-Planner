@@ -6,4 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btmbar"
+        android:id="@+id/frame"
+        ></FrameLayout>
+
+<include layout="@layout/bottombar"
+    android:id="@+id/btmbar"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_width="match_parent"
+    android:layout_alignParentBottom="true"></include>
+
 </RelativeLayout>

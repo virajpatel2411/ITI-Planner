@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText edtEmail, edtMob, edtPass;
+    EditText edtEmail, edtMob, edtPass, edtName;
     Button btnNext;
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
@@ -35,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edt_email);
         edtMob = findViewById(R.id.edt_number);
         edtPass = findViewById(R.id.edt_password);
+        edtName = findViewById(R.id.edt_name);
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -78,10 +79,12 @@ public class SignUpActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     String key = myRef.push().getKey();
                                     UserModel userModel = new UserModel();
+                                    userModel.setName(edtName.getText().toString());
                                     userModel.setEmail(edtEmail.getText().toString());
                                     userModel.setMobNo(edtMob.getText().toString());
-                                    userModel.setPassWaord(edtPass.getText().toString());
+                                    userModel.setPassWord(edtPass.getText().toString());
                                     myRef.child(key).setValue(userModel);
+                                    //Toast.makeText(SignUpActivity.this, myRef.child(key).getParent().toString(), Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
