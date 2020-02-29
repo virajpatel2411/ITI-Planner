@@ -77,7 +77,7 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    String key = myRef.push().getKey();
+                                    String key = mAuth.getUid();
                                     UserModel userModel = new UserModel();
                                     userModel.setName(edtName.getText().toString());
                                     userModel.setEmail(edtEmail.getText().toString());

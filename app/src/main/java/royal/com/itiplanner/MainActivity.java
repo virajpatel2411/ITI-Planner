@@ -2,6 +2,7 @@ package royal.com.itiplanner;
 
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import android.support.annotation.NonNull;
 
 
@@ -26,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     EditText edtEmail,edtPass;
     Button btnSn,btnSu;
     private FirebaseAuth mAuth;
+    private DatabaseReference myRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         btnSu = findViewById(R.id.btn_su);
 
         mAuth = FirebaseAuth.getInstance();
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Users");
 
 
         btnSu.setOnClickListener(new View.OnClickListener() {
@@ -79,9 +91,42 @@ public class MainActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful())
                                 {
-                                    Toast.makeText(MainActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                                    finish();
+                                    String strUId = mAuth.getUid();
+
+                                    myRef.child(strUId).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                                            UserModel userModel = dataSnapshot.getValue(UserModel.class);
+
+                                            String strName  = userModel.getName();
+                                            String strId  = mAuth.getUid();
+
+
+
+                                            SharedPreferences sharedPreferences = getSharedPreferences("ITIPlanner",MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("NAME_KEY",strName);
+                                            editor.putString("UID_KEY",strId);
+
+                                            editor.commit();
+
+
+                                            //Toast.makeText(MainActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                            finish();
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+
                                 }
                                 else
                                 {
