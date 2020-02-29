@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 public class CustomizeFragment extends Fragment
 {
@@ -14,7 +15,7 @@ public class CustomizeFragment extends Fragment
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_customize,container,false);
-
+        Toast.makeText(getActivity(), "Customize:-Under Development", Toast.LENGTH_SHORT).show();
         return rootView;
     }
 }
