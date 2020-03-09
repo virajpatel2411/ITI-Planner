@@ -37,7 +37,6 @@ public class HomeActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.home:
                         fragment = new HomeFragment();
-
                         break;
                     case R.id.my_profile:
                         //Toast.makeText(HomeActivity.this, "Profile", Toast.LENGTH_SHORT).show();
@@ -45,17 +44,12 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.search:
                         fragment = new SearchFragment();
-
                         break;
                     case R.id.customize:
-
                         fragment = new CustomizeFragment();
-
                         break;
                 }
                 if (fragment != null) {
-
-
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.frame, fragment);
                     //fragmentTransaction.addToBackStack("homeFragment");

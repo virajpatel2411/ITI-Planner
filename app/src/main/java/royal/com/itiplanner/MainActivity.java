@@ -207,14 +207,17 @@ public class MainActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             String key = mAuth.getUid();
 
-                            SharedPreferences sharedPreferences = getSharedPreferences("ITIPlanner", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("NAME_KEY", user.getDisplayName());
-                            editor.putString("UID_KEY", key);
-                            editor.putString("GOOGLE_KEY", "GOOGLE");
+                            UserModel userModel = new UserModel();
+                            userModel.setName(user.getDisplayName());
+                            userModel.setEmail(user.getEmail());
+                            userModel.setMobNo(user.getPhoneNumber());
+                            //userModel.setPassWord(edtPass.getText().toString());
+                            myRef.child(key).setValue(userModel);
+                            //Toast.makeText(SignUpActivity.this, myRef.child(key).getParent().toString(), Toast.LENGTH_SHORT).show();
 
-
-                            editor.commit();
+                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
 
 
                             //FirebaseUser user = mAuth.getCurrentUser();

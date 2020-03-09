@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
@@ -39,6 +41,16 @@ public class HomeFragment extends Fragment {
         txtView = rootView.findViewById(R.id.txt_name);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ITIPlanner", MODE_PRIVATE);
         String strName = sharedPreferences.getString("NAME_KEY", "");
+        String personName = "";
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
+        if (acct != null) {
+            personName = acct.getDisplayName();
+        }
+        if(strName == "" && personName != "")
+        {
+            strName = personName;
+        }
 
         txtView.setText(strName);
 
