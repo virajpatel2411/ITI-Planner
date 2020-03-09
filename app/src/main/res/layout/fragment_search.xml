@@ -9,14 +9,14 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="494dp"
-        android:layout_height="553dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="25dp"
         android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@+id/proceed_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintTop_toBottomOf="@+id/search_view" />
 
     <Button
         android:id="@+id/filter_button"
@@ -41,7 +41,6 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
