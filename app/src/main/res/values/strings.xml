@@ -1,4 +1,10 @@
 <resources>
+    <array name="types">
+        <item>by Itinerary Name</item>
+        <item>by State Name</item>
+        <item>by Tags</item>
+    </array>
+
     <string name="app_name">ITI Planner</string>
 
     <!-- TODO: Remove or change this placeholder text -->

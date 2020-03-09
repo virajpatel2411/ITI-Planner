@@ -82,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     userModel.setName(edtName.getText().toString());
                                     userModel.setEmail(edtEmail.getText().toString());
                                     userModel.setMobNo(edtMob.getText().toString());
-                                    userModel.setPassWord(edtPass.getText().toString());
+                                    //userModel.setPassWord(edtPass.getText().toString());
                                     myRef.child(key).setValue(userModel);
                                     //Toast.makeText(SignUpActivity.this, myRef.child(key).getParent().toString(), Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
