@@ -1,11 +1,11 @@
-package royal.com.itiplanner;
+package royal.com.itiplanner.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-
+import royal.com.itiplanner.R;
 
 public class SplashActivity extends AppCompatActivity {
 

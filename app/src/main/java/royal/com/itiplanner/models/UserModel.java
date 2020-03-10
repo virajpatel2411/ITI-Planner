@@ -1,4 +1,4 @@
-package royal.com.itiplanner;
+package royal.com.itiplanner.models;
 
 public class UserModel {
 

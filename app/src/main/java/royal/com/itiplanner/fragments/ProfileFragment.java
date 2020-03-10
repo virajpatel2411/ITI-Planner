@@ -1,4 +1,4 @@
-package royal.com.itiplanner;
+package royal.com.itiplanner.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,12 +13,14 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInApi;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import royal.com.itiplanner.activities.MainActivity;
+import royal.com.itiplanner.R;
+import royal.com.itiplanner.adapters.MyListAdapter;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -26,7 +28,7 @@ public class ProfileFragment extends Fragment {
     ListView listView;
     Button btnLogout;
     String[] str = {"Personal Details", "History", "Feedback", "About Us", "Settings"};
-    int[] img = {R.drawable.ic_account, R.drawable.ic_history, R.drawable.ic_feedback, R.drawable.ic_help, R.drawable.ic_settings};
+    int[] img = { R.drawable.ic_account, R.drawable.ic_history, R.drawable.ic_feedback, R.drawable.ic_help, R.drawable.ic_settings};
     private FirebaseAuth mAuth;
     private String strGoogle;
     private GoogleSignInClient mGoogleSignInClient;

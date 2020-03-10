@@ -1,4 +1,4 @@
-package royal.com.itiplanner;
+package royal.com.itiplanner.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,8 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.List;
+import royal.com.itiplanner.R;
 
 public class MyListAdapter extends ArrayAdapter {
     Context context;

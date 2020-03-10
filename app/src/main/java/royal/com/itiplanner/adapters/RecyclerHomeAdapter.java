@@ -1,16 +1,17 @@
-package royal.com.itiplanner;
+package royal.com.itiplanner.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import royal.com.itiplanner.R;
+import royal.com.itiplanner.models.HomePageItineraryModel;
 
 public class RecyclerHomeAdapter extends RecyclerView.Adapter<RecyclerHomeAdapter.ViewHolder>{
 

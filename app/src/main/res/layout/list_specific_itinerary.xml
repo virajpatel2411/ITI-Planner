@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:layout_height="?attr/actionBarSize"
+    android:layout_width="match_parent"
+    android:layout_margin="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/spec_rel"
+      android:gravity="center">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_margin="8dp">
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="2"
+         android:id="@+id/txt_Days"
+         android:textSize="16sp"
+         android:textColor="#000"
+         ></TextView>
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text=" Days"
+         android:textSize="16sp"         android:textColor="#000"
+         ></TextView>
+
+
+     <View
+         android:layout_width="2dp"
+         android:layout_height="match_parent"
+         android:background="#000"
+         android:layout_marginHorizontal="16dp"
+
+       ></View>
+
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="North Goa"
+         android:id="@+id/txtPlace"
+         android:textSize="16sp"         android:textColor="#000"
+         ></TextView>
+
+
+     <View
+         android:layout_width="2dp"
+         android:layout_height="match_parent"
+         android:background="#000"
+         android:layout_marginHorizontal="16dp"
+         ></View>
+
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Rs."
+         android:textSize="16sp"
+         android:textColor="#000"
+         ></TextView>
+
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="2000"
+         android:id="@+id/txtPrice"
+         android:textSize="16sp"
+         android:textColor="#000"
+         ></TextView>
+
+   </LinearLayout>
+  </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -1,4 +1,4 @@
-package royal.com.itiplanner;
+package royal.com.itiplanner.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,8 +8,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toast;
-
+import royal.com.itiplanner.R;
+import royal.com.itiplanner.fragments.CustomizeFragment;
+import royal.com.itiplanner.fragments.HomeFragment;
+import royal.com.itiplanner.fragments.ProfileFragment;
+import royal.com.itiplanner.fragments.SearchFragment;
 
 public class HomeActivity extends AppCompatActivity {
 

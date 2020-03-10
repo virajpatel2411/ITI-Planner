@@ -1,4 +1,4 @@
-package royal.com.itiplanner;
+package royal.com.itiplanner.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
