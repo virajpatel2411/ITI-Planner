@@ -4,32 +4,20 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <!-- Show on Map button -->
-    <Button android:id="@+id/btn_show_map"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Show Places on Map"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"/>
+  <SearchView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="8dp"
+      android:id="@+id/custom_search_view"
+      android:iconifiedByDefault="true"
+      android:background="@drawable/bg_border"
+      android:backgroundTint="#F7EFEF"/>
 
-    <!--  List view -->
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_show_map"/>
-
-
-
-    <AutoCompleteTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search place"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:textSize="30dp"
-        android:id="@+id/autocomplete"
-        />
+  <ListView
+      android:id="@+id/custom_search_list"
+      android:layout_width="match_parent"
+      android:layout_height="fill_parent"
+      android:layout_margin="8dp"
+      android:layout_below="@id/custom_search_view"/>
 
 </RelativeLayout>

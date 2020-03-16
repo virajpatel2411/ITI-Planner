@@ -1,12 +1,12 @@
 <resources>
-    <array name="types">
-        <item>by Itinerary Name</item>
-        <item>by State Name</item>
-        <item>by Tags</item>
-    </array>
+  <array name="types">
+    <item>by Itinerary Name</item>
+    <item>by State Name</item>
+    <item>by Tags</item>
+  </array>
 
-    <string name="app_name">ITI Planner</string>
+  <string name="app_name">ITI Planner</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
