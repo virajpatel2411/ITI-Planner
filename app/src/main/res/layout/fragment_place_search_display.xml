@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.PlaceSearchDisplay">
+
+  <TextView
+      android:id="@+id/text_search_result"
+      android:gravity="left"
+      android:layout_margin="10dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="@android:color/black"
+      android:textStyle="bold"
+      android:textSize="40dp"/>
+
+  <ListView
+      android:id="@+id/list_search_result"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/text_search_result"/>
+
+</RelativeLayout>
