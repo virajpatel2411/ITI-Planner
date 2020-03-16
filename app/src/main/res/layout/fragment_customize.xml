@@ -4,20 +4,15 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-  <SearchView
+  <AutoCompleteTextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_margin="8dp"
+      android:padding="10dp"
+      android:hint="Search place"
       android:id="@+id/custom_search_view"
       android:iconifiedByDefault="true"
       android:background="@drawable/bg_border"
       android:backgroundTint="#F7EFEF"/>
-
-  <ListView
-      android:id="@+id/custom_search_list"
-      android:layout_width="match_parent"
-      android:layout_height="fill_parent"
-      android:layout_margin="8dp"
-      android:layout_below="@id/custom_search_view"/>
 
 </RelativeLayout>

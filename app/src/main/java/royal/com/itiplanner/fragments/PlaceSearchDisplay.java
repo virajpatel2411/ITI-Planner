@@ -21,6 +21,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import royal.com.itiplanner.R;
+import royal.com.itiplanner.models.PlacesApi;
 
 public class PlaceSearchDisplay extends Fragment {
 
@@ -29,6 +30,7 @@ public class PlaceSearchDisplay extends Fragment {
   ListView listView;
   ArrayList<String> places;
   ArrayAdapter<String> arrayAdapter;
+  PlacesApi placesApi;
 
   String place;
 
@@ -80,22 +82,16 @@ public class PlaceSearchDisplay extends Fragment {
 
     @Override
     protected Void doInBackground(Void... voids) {
-
-      String url = "https://www.google.com/maps/search/tourist+attraction+in+" + place;
-      Log.e("url",url);
       try {
-        Document doc = Jsoup.connect(url).get();
-        /*
-        Elements box = d.select("#pane > div > div.widget-pane-content.scrollable-y "
-            + "> div > div > div.section-layout.section-scrollbox.scrollable-y.scrollable-show.section-layout-flex-vertical "
-            + "> div.section-layout.section-scrollbox.scrollable-y.scrollable-show.section-layout-flex-vertical "
-            + "> div:nth-child(1) > div.section-result-content > div.section-result-text-content "
-            + "> div.section-result-header-container > div.section-result-header > div.section-result-title-container "
-            + "> h3 > span");
-         */
-
-        places.add(doc.html());
-
+        String temp = "";
+        for(int i=0;i<place.length();i++)
+        {
+          if(place.charAt(i) != ',')
+          {
+            temp = temp + place.charAt(i);
+          }
+        }
+        places = placesApi.SearchPlace(temp);
       }catch (Exception e){
         e.printStackTrace();
       }
