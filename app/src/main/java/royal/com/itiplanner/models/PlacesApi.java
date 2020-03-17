@@ -2,6 +2,11 @@ package royal.com.itiplanner.models;
 
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,10 +19,9 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import royal.com.itiplanner.R;
 
 public class PlacesApi {
-
-    String API_KEY = "AIzaSyCQXqjK34UVxzTQW2zH9oB3WimKrYVHGpo";
 
     public ArrayList<String> autoComplete(String input){
         ArrayList<String> arrayList = new ArrayList();
@@ -26,7 +30,7 @@ public class PlacesApi {
         try{
             StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/autocomplete/json?");
             sb.append("input=" + input);
-            sb.append("&key=" + API_KEY);
+            sb.append("&key=AIzaSyCQXqjK34UVxzTQW2zH9oB3WimKrYVHGpo");
 
             URL url = new URL(sb.toString());
             connection = (HttpURLConnection)url.openConnection();
@@ -68,18 +72,14 @@ public class PlacesApi {
         return arrayList;
     }
 
-    public ArrayList<String> SearchPlace(String input){
-        ArrayList<String> arrayList = new ArrayList<String>();
+    public ArrayList<SearchPlace> SearchPlaceCustomize(String input){
+        ArrayList<SearchPlace> arrayList = new ArrayList<SearchPlace>();
 
         HttpURLConnection connection = null;
         StringBuilder jsonResult = new StringBuilder();
         try{
-            StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/textsearch/json?");
-            sb.append("query=tourist attraction in " + input);
-            sb.append("&language=en&key=" + API_KEY);
 
-            URL url = new URL(sb.toString());
-            connection = (HttpURLConnection)url.openConnection();
+            //connection = (HttpURLConnection)url.openConnection();
             InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
 
             int read;
@@ -105,11 +105,7 @@ public class PlacesApi {
 
         try{
             JSONObject jsonObject = new JSONObject(jsonResult.toString());
-            JSONArray prediction = jsonObject.getJSONArray("results");
-            for (int i=0;i<prediction.length();i++){
-                arrayList.add(prediction.getJSONObject(i).getString("name"));
-                Log.d("Place" + i,arrayList.get(i));
-            }
+
         }
         catch (JSONException e){
             e.printStackTrace();

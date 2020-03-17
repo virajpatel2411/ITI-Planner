@@ -7,7 +7,6 @@
 
   <TextView
       android:id="@+id/text_search_result"
-      android:gravity="left"
       android:layout_margin="10dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -15,10 +14,11 @@
       android:textStyle="bold"
       android:textSize="40dp"/>
 
-  <ListView
+  <android.support.v7.widget.RecyclerView
       android:id="@+id/list_search_result"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/text_search_result"/>
+      android:layout_below="@id/text_search_result"
+      android:layout_marginTop="5dp"/>
 
 </RelativeLayout>
