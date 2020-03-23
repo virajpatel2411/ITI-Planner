@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,15 @@ public class DisplayPlaceAdapter extends RecyclerView.Adapter<DisplayPlaceAdapte
 
   private ArrayList<SearchPlace> searchPlaces;
   private Context context;
+  private OnItemClickListener onItemClickListener;
+
+  public interface OnItemClickListener{
+    void onItemClick(int position);
+  }
+
+  public void setOnItemClickListener(OnItemClickListener listener){
+    onItemClickListener = listener;
+  }
 
   public DisplayPlaceAdapter(ArrayList<SearchPlace> searchPlaces, Context context) {
     this.searchPlaces = searchPlaces;
@@ -67,6 +77,16 @@ public class DisplayPlaceAdapter extends RecyclerView.Adapter<DisplayPlaceAdapte
       name = itemView.findViewById(R.id.place_name);
       ratings = itemView.findViewById(R.id.ratings);
 
+      itemView.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(View v) {
+          if(onItemClickListener != null){
+            int position = getAdapterPosition();
+            if(position != RecyclerView.NO_POSITION){
+              onItemClickListener.onItemClick(position);
+            }
+          }
+        }
+      });
     }
   }
 }

@@ -19,6 +19,17 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/text_search_result"
+      android:layout_marginBottom="80dp"
       android:layout_marginTop="5dp"/>
+
+  <Button
+      android:id="@+id/create_iti_btn"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Create Itinerary"
+      android:layout_alignParentBottom="true"
+      android:background="@android:color/holo_red_light"
+      android:textColor="@android:color/white"
+      android:layout_margin="20dp"/>
 
 </RelativeLayout>

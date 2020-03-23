@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.CreateItinerary">
+
+  <TextView
+      android:id="@+id/iti_name"
+      android:layout_margin="10dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="@android:color/black"
+      android:textStyle="bold"
+      android:textSize="40dp"/>
+
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/iti_list"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/iti_name"
+      android:layout_marginBottom="80dp"
+      android:layout_marginTop="5dp"/>
+
+
+    <Button
+        android:id="@+id/back_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Back"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:background="@android:color/holo_red_light"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/share_btn"
+        android:layout_alignParentRight="true"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_red_light"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+</RelativeLayout>

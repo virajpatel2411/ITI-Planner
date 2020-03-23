@@ -54,8 +54,6 @@ public class CustomizeFragment extends Fragment
                 getFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
             }
         });
-
-
         return rootView;
     }
 }

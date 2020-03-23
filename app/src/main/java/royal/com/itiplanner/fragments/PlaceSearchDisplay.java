@@ -2,6 +2,7 @@ package royal.com.itiplanner.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,8 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -38,21 +41,24 @@ import royal.com.itiplanner.adapters.RecyclerHomeAdapter;
 import royal.com.itiplanner.models.PlacesApi;
 import royal.com.itiplanner.models.SearchPlace;
 
-public class PlaceSearchDisplay extends Fragment {
+public class PlaceSearchDisplay extends Fragment implements
+    DisplayPlaceAdapter.OnItemClickListener {
 
   TextView textView;
   ProgressDialog pd;
   RecyclerView place_list;
   ArrayList<SearchPlace> places;
+  ArrayList<SearchPlace> selectedPlaces;
   PlacesApi placesApi;
   RequestQueue requestQueue;
+  Button createItinerary;
 
   String place;
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    View rootView = inflater.inflate(R.layout.fragment_place_search_display,container,false);
+    final View rootView = inflater.inflate(R.layout.fragment_place_search_display,container,false);
 
     place = getArguments().getString("Place");
 
@@ -63,15 +69,28 @@ public class PlaceSearchDisplay extends Fragment {
 
     places = new ArrayList<>();
     placesApi = new PlacesApi();
+    selectedPlaces = new ArrayList<>();
 
     textView = rootView.findViewById(R.id.text_search_result);
     place_list = rootView.findViewById(R.id.list_search_result);
     place_list.setLayoutManager(new GridLayoutManager(rootView.getContext(),2));
+    createItinerary = rootView.findViewById(R.id.create_iti_btn);
 
     requestQueue = Volley.newRequestQueue(rootView.getContext());
     SearchPlaceCustomize(rootView.getContext(),place);
 
     textView.setText(place);
+
+    createItinerary.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Fragment fragment = new CreateItinerary();
+        Bundle bundle = new Bundle();
+        bundle.putString("Name",place);
+        bundle.putSerializable("CreateClass",selectedPlaces);
+        fragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
+      }
+    });
 
     return rootView;
   }
@@ -106,6 +125,7 @@ public class PlaceSearchDisplay extends Fragment {
 
               DisplayPlaceAdapter displayPlaceAdapter = new DisplayPlaceAdapter(places,context);
               place_list.setAdapter(displayPlaceAdapter);
+              displayPlaceAdapter.setOnItemClickListener(PlaceSearchDisplay.this);
 
             } catch (JSONException e) {
               e.printStackTrace();
@@ -119,5 +139,12 @@ public class PlaceSearchDisplay extends Fragment {
 
     requestQueue.add(request);
     pd.dismiss();
+  }
+
+  @Override public void onItemClick(int position) {
+    SearchPlace searchPlace = places.get(position);
+    String s = searchPlace.getPlaceName();
+    selectedPlaces.add(searchPlace);
+    Toast.makeText(getContext(),"Added " + s,Toast.LENGTH_SHORT).show();
   }
 }
