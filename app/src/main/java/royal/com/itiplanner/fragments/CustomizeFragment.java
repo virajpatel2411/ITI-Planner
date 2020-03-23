@@ -14,6 +14,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,8 +54,6 @@ public class CustomizeFragment extends Fragment
                 getFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
             }
         });
-
-
         return rootView;
     }
 }

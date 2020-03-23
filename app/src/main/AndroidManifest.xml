@@ -12,6 +12,10 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme"
       tools:replace="android:appComponentFactory">
+
+    <meta-data android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyCQXqjK34UVxzTQW2zH9oB3WimKrYVHGpo"/>
+
     <activity android:name=".fragments.PlaceSearchDisplay"></activity>
     <activity android:name=".activities.SignUpActivity" />
     <activity android:name=".activities.HomeActivity" />
