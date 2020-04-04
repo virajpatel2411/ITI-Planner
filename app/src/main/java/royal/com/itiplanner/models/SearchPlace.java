@@ -3,7 +3,16 @@ package royal.com.itiplanner.models;
 public class SearchPlace {
   private String placeName;
   private String photoReference;
-  private int ratings;
+  private double ratings;
+  private double latitude,longitude;
+
+  public void setLatitude(double latitude) { this.latitude = latitude; }
+
+  public void setLongitude(double longitude) { this.longitude = longitude; }
+
+  public double getLatitude() { return latitude; }
+
+  public double getLongitude() { return longitude; }
 
   public String getPlaceName() {
     return placeName;
@@ -13,7 +22,7 @@ public class SearchPlace {
     return photoReference;
   }
 
-  public float getRatings() {
+  public double getRatings() {
     return ratings;
   }
 
@@ -25,7 +34,7 @@ public class SearchPlace {
     this.photoReference = photoReference;
   }
 
-  public void setRatings(int ratings) {
+  public void setRatings(double ratings) {
     this.ratings = ratings;
   }
 }
