@@ -14,11 +14,20 @@
       android:textStyle="bold"
       android:textSize="40dp"/>
 
+  <TextView
+      android:id="@+id/text"
+      android:layout_below="@id/iti_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text=""
+      android:layout_margin="10dp"
+      android:textSize="20dp"/>
+
   <android.support.v7.widget.RecyclerView
       android:id="@+id/iti_list"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/iti_name"
+      android:layout_below="@id/text"
       android:layout_marginBottom="80dp"
       android:layout_marginTop="5dp"/>
 
@@ -37,11 +46,11 @@
         android:layout_marginBottom="20dp"/>
 
     <Button
-        android:id="@+id/share_btn"
+        android:id="@+id/show_trip_btn"
         android:layout_alignParentRight="true"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Share"
+        android:text="Show Trip"
         android:layout_alignParentBottom="true"
         android:background="@android:color/holo_red_light"
         android:textColor="@android:color/white"

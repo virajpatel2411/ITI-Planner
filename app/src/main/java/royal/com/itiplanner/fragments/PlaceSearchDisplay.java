@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +50,7 @@ public class PlaceSearchDisplay extends Fragment implements
   RecyclerView place_list;
   ArrayList<SearchPlace> places;
   ArrayList<SearchPlace> selectedPlaces;
+  SearchPlace airport;
   PlacesApi placesApi;
   RequestQueue requestQueue;
   Button createItinerary;
@@ -70,6 +72,7 @@ public class PlaceSearchDisplay extends Fragment implements
     places = new ArrayList<>();
     placesApi = new PlacesApi();
     selectedPlaces = new ArrayList<>();
+    airport = new SearchPlace();
 
     textView = rootView.findViewById(R.id.text_search_result);
     place_list = rootView.findViewById(R.id.list_search_result);
@@ -77,6 +80,7 @@ public class PlaceSearchDisplay extends Fragment implements
     createItinerary = rootView.findViewById(R.id.create_iti_btn);
 
     requestQueue = Volley.newRequestQueue(rootView.getContext());
+    Airport(rootView.getContext(),place);
     SearchPlaceCustomize(rootView.getContext(),place);
 
     textView.setText(place);
@@ -86,6 +90,7 @@ public class PlaceSearchDisplay extends Fragment implements
         Fragment fragment = new CreateItinerary();
         Bundle bundle = new Bundle();
         bundle.putString("Name",place);
+        selectedPlaces.add(0,airport);
         bundle.putSerializable("CreateClass",selectedPlaces);
         fragment.setArguments(bundle);
         getFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
@@ -93,6 +98,46 @@ public class PlaceSearchDisplay extends Fragment implements
     });
 
     return rootView;
+  }
+
+  private void Airport(Context context, String input) {
+    StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/textsearch/json?");
+    sb.append("query=airport in " + input);
+    sb.append("&language=en&key=AIzaSyCQXqjK34UVxzTQW2zH9oB3WimKrYVHGpo");
+
+    String url = sb.toString();
+
+    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+        new Response.Listener<JSONObject>() {
+          @Override public void onResponse(JSONObject response) {
+            JSONArray results = null;
+            try {
+              results = response.getJSONArray("results");
+
+              airport.setPlaceName(results.getJSONObject(0).getString("name"));
+              airport.setRatings(results.getJSONObject(0).getInt("rating"));
+              airport.setPhotoReference("CmRZAAAAXfDRsvzaMknKnWMv1mMAkWm2HjC8mxRDzEcDajyysTnf08NfD9WOOv6_jPqaQfcZd1QWZyM4MBnklVgZXwXQ_kp3ZHZmDeAaE9bGP8ls1gYnZN5IN9jLHpS3-E6GEItQEhDYKCmiDAZHSFf_jIptpkWIGhQrKR_CnvszAyOR1ZCuuCc5NPMQkw");
+
+              JSONObject geometry = results.getJSONObject(0).getJSONObject("geometry");
+              JSONObject location = geometry.getJSONObject("location");
+
+              airport.setLatitude(location.getDouble("lat"));
+              airport.setLongitude(location.getDouble("lng"));
+
+              Log.e("NAME :",airport.getPlaceName());
+
+            } catch (JSONException e) {
+              Log.e("ERROR:","AIRPORT NOT ADDED");
+              e.printStackTrace();
+            }
+          }
+        }, new Response.ErrorListener() {
+      @Override public void onErrorResponse(VolleyError error) {
+        Log.e("ERROR:","AIRPORT NOT ADDED");
+        error.printStackTrace();
+      }
+    });
+    requestQueue.add(request);
   }
 
   private void SearchPlaceCustomize(final Context context,String input) {
@@ -119,6 +164,12 @@ public class PlaceSearchDisplay extends Fragment implements
 
                 JSONArray photos = results.getJSONObject(i).getJSONArray("photos");
                 s.setPhotoReference(photos.getJSONObject(0).getString("photo_reference"));
+
+                JSONObject geometry = results.getJSONObject(i).getJSONObject("geometry");
+                JSONObject location = geometry.getJSONObject("location");
+
+                s.setLatitude(location.getDouble("lat"));
+                s.setLongitude(location.getDouble("lng"));
 
                 places.add(s);
               }

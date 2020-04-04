@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.TextView;
+import java.io.Serializable;
 import java.util.ArrayList;
 import royal.com.itiplanner.R;
 import royal.com.itiplanner.adapters.DisplayPlaceAdapter;
@@ -20,10 +21,11 @@ import royal.com.itiplanner.models.SearchPlace;
 
 public class CreateItinerary extends Fragment {
 
-  TextView iti_name;
+  TextView iti_name,text;
   RecyclerView iti_list;
   ArrayList<SearchPlace> selectedPlaces;
-  Button back,share;
+  SearchPlace airport;
+  Button back,showTrip;
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -32,13 +34,18 @@ public class CreateItinerary extends Fragment {
 
     final String name = getArguments().getString("Name");
     selectedPlaces = (ArrayList<SearchPlace>) getArguments().getSerializable("CreateClass");
+    //airport = (SearchPlace) getArguments().getSerializable("Airport");
 
     iti_name = rootView.findViewById(R.id.iti_name);
+    text = rootView.findViewById(R.id.text);
     iti_list = rootView.findViewById(R.id.iti_list);
     back = rootView.findViewById(R.id.back_btn);
-    share = rootView.findViewById(R.id.share_btn);
+    showTrip = rootView.findViewById(R.id.show_trip_btn);
 
     iti_name.setText(name);
+    text.setText("Your Customize Itinerary is displayed below");
+
+    airport = selectedPlaces.remove(0);
 
     iti_list.setLayoutManager(new GridLayoutManager(rootView.getContext(),2));
     DisplayPlaceAdapter displayPlaceAdapter = new DisplayPlaceAdapter(selectedPlaces,rootView.getContext());
@@ -54,22 +61,16 @@ public class CreateItinerary extends Fragment {
       }
     });
 
-    share.setOnClickListener(new View.OnClickListener() {
+    showTrip.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-
-        String shareBody = "";
-        shareBody = "Itinerary for "+ name +" is :\n";
-        int count=1;
-        for(SearchPlace s : selectedPlaces)
-        {
-          shareBody = shareBody + String.valueOf(count) + ") " +  s.getPlaceName() + "\n";
-          count++;
-        }
-
-        Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("text/plain");
-        i.putExtra(Intent.EXTRA_TEXT,shareBody);
-        startActivity(Intent.createChooser(i,"Share Itinerary using"));
+        Fragment fragment = new DisplayPlaceList();
+        Bundle bundle = new Bundle();
+        bundle.putString("Name",name);
+        selectedPlaces.add(0,airport);
+        bundle.putSerializable("SelectedPlaces",selectedPlaces);
+        //bundle.putSerializable("Airport", (Serializable) airport);
+        fragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
       }
     });
 
