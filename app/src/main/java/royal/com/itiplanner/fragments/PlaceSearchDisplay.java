@@ -93,7 +93,7 @@ public class PlaceSearchDisplay extends Fragment implements
         selectedPlaces.add(0,airport);
         bundle.putSerializable("CreateClass",selectedPlaces);
         fragment.setArguments(bundle);
-        getFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.frame,fragment).addToBackStack("homeFragment").commit();
       }
     });
 

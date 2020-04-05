@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -53,6 +55,30 @@ public class ProfileFragment extends Fragment {
        // mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), googleSignInOptions);
         MyListAdapter listAdapter = new MyListAdapter(getContext(), str, img);
         listView.setAdapter(listAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        Fragment fragment = new HistoryFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.frame,fragment).addToBackStack("homeFragment").commit();
+
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                }
+            }
+        });
+
+
         btnLogout = rootView.findViewById(R.id.btn_lo);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

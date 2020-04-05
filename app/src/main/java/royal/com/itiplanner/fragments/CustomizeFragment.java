@@ -51,7 +51,7 @@ public class CustomizeFragment extends Fragment
                 Bundle bundle = new Bundle();
                 bundle.putString("Place",s);
                 fragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.frame,fragment).addToBackStack("homeFragment").commit();
             }
         });
         return rootView;

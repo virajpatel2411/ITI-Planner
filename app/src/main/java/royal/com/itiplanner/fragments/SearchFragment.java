@@ -1,5 +1,7 @@
 package royal.com.itiplanner.fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,11 +14,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import royal.com.itiplanner.R;
@@ -31,6 +40,7 @@ public class SearchFragment extends Fragment
     FirebaseDatabase database;
     DatabaseReference myRef;
     ArrayList<FinalModel> finalModels = new ArrayList<>();
+
 
     @Nullable
     @Override
@@ -74,7 +84,11 @@ public class SearchFragment extends Fragment
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position,
                 long id) {
+                ////////////////////////////////////////////////////////////////////
                 myRef = myRef.child(listView.getItemAtPosition(position).toString());
+
+
+                ///////////////////////////////////////////////////////////////////////////////
                 states = new ArrayList<>();
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -88,13 +102,18 @@ public class SearchFragment extends Fragment
                             states.add(dataSnapshot1.getKey());
 
                         }
+//////////////////////////////////////////////////////////////////////////////
+
                         Fragment fragment = new ItineraryDisplayFragment();
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("FINAL",(Serializable)finalModels);
                         bundle.putStringArrayList("CITY",states);
+
+                        bundle.putString("STATE",listView.getItemAtPosition(position).toString());
+
                         fragment.setArguments(bundle);
 
-                        getFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.frame,fragment).addToBackStack("homeFragment").commit();
                     }
 
                     @Override
