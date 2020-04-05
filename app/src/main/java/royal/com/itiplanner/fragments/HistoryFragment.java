@@ -30,7 +30,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class HistoryFragment extends Fragment {
   RecyclerView recyclerView;
   FirebaseDatabase database;
-  DatabaseReference myRef1,myRef2,myRef3,myRef;
+  DatabaseReference myRef1,myRef2,myRef;
   ArrayList<String> states;
   ArrayList<String> ids;
   ArrayList<DisplayItineraryModel> arrayList;
@@ -73,8 +73,8 @@ public class HistoryFragment extends Fragment {
             for(String id:ids)
             {
               Log.e("a",id);
-              myRef = database.getReference("Itinerary").child(id);
-              myRef.addValueEventListener(new ValueEventListener() {
+              myRef2 = database.getReference("Itinerary").child(id);
+              myRef2.addValueEventListener(new ValueEventListener() {
                 @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                   for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
                     if(states.contains(dataSnapshot1.getKey())){

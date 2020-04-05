@@ -40,8 +40,8 @@ public class BitmapImageAdapter extends PagerAdapter {
   @NonNull
   @Override
   public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
-    ImageView imageView;
-    //imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    ImageView imageView = new ImageView(context);
+    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
     Log.e("abcd","1");
     imageView = bitmaps.get(position);
     //imageView.setImageBitmap(bitmaps.get(position));

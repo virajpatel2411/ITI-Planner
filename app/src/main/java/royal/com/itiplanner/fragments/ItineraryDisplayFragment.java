@@ -30,7 +30,7 @@ public class ItineraryDisplayFragment extends Fragment {
 
   RecyclerView recyclerView;
   ArrayList<DisplayItineraryModel> arrayList;
-  private FirebaseStorage storage = FirebaseStorage.getInstance();
+  private FirebaseStorage storage;
   private StorageReference mStorageRef;
   ArrayList<ImageView> bitmaps;
   ViewPager viewPager;
@@ -52,20 +52,21 @@ public class ItineraryDisplayFragment extends Fragment {
     state = getArguments().getString("STATE");
     //bitmaps = getArguments().getParcelableArrayList("IMAGES");
     Log.e("viraj", finalModels.toString());
-    Log.v("virajp", String.valueOf(bitmaps.size()));
+    //Log.v("virajp", String.valueOf(bitmaps.size()));
     //Log.v("virajp",String.valueOf(bitmaps.get(0)));
-
+    storage = FirebaseStorage.getInstance();
     arrayList = new ArrayList<>();
 
     int i = 0;
-    for (FinalModel f : finalModels) {
+
+
+    for(i=0;i<finalModels.size();i++)
+    {
       DisplayItineraryModel displayItineraryModel = new DisplayItineraryModel();
-      displayItineraryModel.setFinalModel(f);
+      displayItineraryModel.setFinalModel(finalModels.get(i));
       displayItineraryModel.setCity(city.get(i));
       arrayList.add(displayItineraryModel);
-      i++;
     }
-
     Log.e("abc", "viraj");
     RecyclerDisplayAdapter recyclerDisplayAdapter =
         new RecyclerDisplayAdapter(rootView.getContext(), arrayList);
@@ -105,7 +106,8 @@ public class ItineraryDisplayFragment extends Fragment {
 
     @Override protected String doInBackground(Void... voids) {
 
-      for (j = 1; j <= 5; j++) {
+     for (j = 1; j <= 5; j++) {
+
 
         mStorageRef = storage.getReferenceFromUrl("gs://iti-planner.appspot.com").child(state);
 
@@ -115,12 +117,13 @@ public class ItineraryDisplayFragment extends Fragment {
                 ImageView imageView = new ImageView(context);
                 String url = uri.toString();
                 Log.e("abc", url);
+                Log.e("abc","before");
                 Glide.with(context).load(url).into(imageView);
+                Log.e("abc","after");
                 bitmaps.add(imageView);
                 if(j==5)
-                {
+                  Log.e("abc","method called");
                   displayImage();
-                }
               }
 
             });

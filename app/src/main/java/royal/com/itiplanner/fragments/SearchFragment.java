@@ -39,7 +39,7 @@ public class SearchFragment extends Fragment
     ArrayAdapter<String> arrayAdapter;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    ArrayList<FinalModel> finalModels = new ArrayList<>();
+    ArrayList<FinalModel> finalModels;
 
 
     @Nullable
@@ -49,7 +49,7 @@ public class SearchFragment extends Fragment
 
         searchView = rootView.findViewById(R.id.search_view);
         listView = rootView.findViewById(R.id.list_search);
-
+        finalModels = new ArrayList<>();
         states = new ArrayList<>();
 
          database = FirebaseDatabase.getInstance();

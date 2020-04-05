@@ -1,4 +1,4 @@
-package royal.com.itiplanner.activities;
+package royal.com.itiplanner;
 
 import android.content.Context;
 import com.bumptech.glide.Glide;
