@@ -69,7 +69,7 @@ public class ItineraryDisplayFragment extends Fragment {
     }
     Log.e("abc", "viraj");
     RecyclerDisplayAdapter recyclerDisplayAdapter =
-        new RecyclerDisplayAdapter(rootView.getContext(), arrayList);
+        new RecyclerDisplayAdapter(rootView.getContext(), arrayList,"Search");
     recyclerView.setAdapter(recyclerDisplayAdapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 

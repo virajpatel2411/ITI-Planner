@@ -89,7 +89,7 @@ public class HistoryFragment extends Fragment {
 
                   Log.e("a",arrayList.toString());
                   RecyclerDisplayAdapter
-                      recyclerDisplayAdapter = new RecyclerDisplayAdapter(rootView.getContext(),arrayList);
+                      recyclerDisplayAdapter = new RecyclerDisplayAdapter(rootView.getContext(),arrayList,"History");
                   recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
                   recyclerView.setAdapter(recyclerDisplayAdapter);
 

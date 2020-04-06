@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import royal.com.itiplanner.R;
 import royal.com.itiplanner.fragments.SpecificItineraryDisplay;
+import royal.com.itiplanner.fragments.SpecificItineraryHistoryFragment;
 import royal.com.itiplanner.models.DisplayItineraryModel;
 import royal.com.itiplanner.models.FinalModel;
 import royal.com.itiplanner.models.PlaceModel;
@@ -27,10 +28,12 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
 
   Context context;
   ArrayList<DisplayItineraryModel> arrayList;
-  public RecyclerDisplayAdapter(Context context, ArrayList<DisplayItineraryModel> arrayList) {
+  String fragmentName;
+  public RecyclerDisplayAdapter(Context context, ArrayList<DisplayItineraryModel> arrayList,String fragmentName) {
 
     this.context = context;
     this.arrayList = arrayList;
+    this.fragmentName = fragmentName;
 
   }
 
@@ -65,7 +68,15 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
 
         Log.e("viraj","Recycler Click");
 
-        Fragment fragment = new SpecificItineraryDisplay();
+        Fragment fragment;
+        if(fragmentName=="Search")
+        {
+           fragment = new SpecificItineraryDisplay();
+        }
+        else
+        {
+           fragment = new SpecificItineraryHistoryFragment();
+        }
         Bundle bundle = new Bundle();
         bundle.putSerializable("FINAL",finalModel);
         bundle.putString("CITY",city);
