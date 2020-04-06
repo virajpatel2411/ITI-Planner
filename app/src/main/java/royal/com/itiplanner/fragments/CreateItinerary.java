@@ -21,7 +21,7 @@ import royal.com.itiplanner.models.SearchPlace;
 
 public class CreateItinerary extends Fragment {
 
-  TextView iti_name,text;
+  TextView iti_name,text,empty_check_text;
   RecyclerView iti_list;
   ArrayList<SearchPlace> selectedPlaces;
   SearchPlace airport;
@@ -38,12 +38,15 @@ public class CreateItinerary extends Fragment {
 
     iti_name = rootView.findViewById(R.id.iti_name);
     text = rootView.findViewById(R.id.text);
+    empty_check_text = rootView.findViewById(R.id.empty_check_text);
     iti_list = rootView.findViewById(R.id.iti_list);
     back = rootView.findViewById(R.id.back_btn);
     showTrip = rootView.findViewById(R.id.show_trip_btn);
 
     iti_name.setText(name);
     text.setText("Your Customize Itinerary is displayed below");
+    if(selectedPlaces.size() == 1)
+      empty_check_text.setText("Your Itinerary is Empty, Please select atleast one places");
 
     airport = selectedPlaces.remove(0);
 
@@ -63,6 +66,10 @@ public class CreateItinerary extends Fragment {
 
     showTrip.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
+        if(selectedPlaces.size() == 1)
+        {
+
+        }
         Fragment fragment = new DisplayPlaceList();
         Bundle bundle = new Bundle();
         bundle.putString("Name",name);

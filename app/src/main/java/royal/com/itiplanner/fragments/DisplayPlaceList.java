@@ -1,5 +1,6 @@
 package royal.com.itiplanner.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -47,7 +48,6 @@ public class DisplayPlaceList extends Fragment {
     iti_name.setText(name);
     text.setText("Your Itinerary with a shortest path starting from "+ selectedPlaces.get(0).getPlaceName() + " is displayed below");
 
-    /*
     share.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
@@ -66,7 +66,6 @@ public class DisplayPlaceList extends Fragment {
         startActivity(Intent.createChooser(i,"Share Itinerary using"));
       }
     });
-    */
 
     //selectedPlaces.add(0,airport);
     outputPlacesList = generate(selectedPlaces);

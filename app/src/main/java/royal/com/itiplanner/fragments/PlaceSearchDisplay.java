@@ -29,6 +29,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +55,7 @@ public class PlaceSearchDisplay extends Fragment implements
   PlacesApi placesApi;
   RequestQueue requestQueue;
   Button createItinerary;
+  ArrayList<String> placesNames;
 
   String place;
 
@@ -61,6 +63,8 @@ public class PlaceSearchDisplay extends Fragment implements
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     final View rootView = inflater.inflate(R.layout.fragment_place_search_display,container,false);
+
+    Toast.makeText(rootView.getContext(),"Clicking an element again and again alternatively adds or removes places",Toast.LENGTH_LONG).show();
 
     place = getArguments().getString("Place");
 
@@ -73,6 +77,7 @@ public class PlaceSearchDisplay extends Fragment implements
     placesApi = new PlacesApi();
     selectedPlaces = new ArrayList<>();
     airport = new SearchPlace();
+    placesNames = new ArrayList<>();
 
     textView = rootView.findViewById(R.id.text_search_result);
     place_list = rootView.findViewById(R.id.list_search_result);
@@ -124,6 +129,10 @@ public class PlaceSearchDisplay extends Fragment implements
               airport.setLatitude(location.getDouble("lat"));
               airport.setLongitude(location.getDouble("lng"));
 
+              Random r = new Random();
+              airport.setNumberOfDays(0);
+              airport.setBudget(0);
+
               Log.e("NAME :",airport.getPlaceName());
 
             } catch (JSONException e) {
@@ -171,6 +180,10 @@ public class PlaceSearchDisplay extends Fragment implements
                 s.setLatitude(location.getDouble("lat"));
                 s.setLongitude(location.getDouble("lng"));
 
+                Random r = new Random();
+                s.setNumberOfDays(r.nextInt(2)+1);
+                s.setBudget(r.nextInt(1501)+500);
+
                 places.add(s);
               }
 
@@ -195,7 +208,17 @@ public class PlaceSearchDisplay extends Fragment implements
   @Override public void onItemClick(int position) {
     SearchPlace searchPlace = places.get(position);
     String s = searchPlace.getPlaceName();
-    selectedPlaces.add(searchPlace);
-    Toast.makeText(getContext(),"Added " + s,Toast.LENGTH_SHORT).show();
+    if(!placesNames.contains(s))
+    {
+      selectedPlaces.add(searchPlace);
+      placesNames.add(s);
+      Toast.makeText(getContext(),"Added " + s,Toast.LENGTH_SHORT).show();
+    }
+    else
+    {
+      selectedPlaces.remove(searchPlace);
+      placesNames.remove(s);
+      Toast.makeText(getContext(),"Removed " + s,Toast.LENGTH_SHORT).show();
+    }
   }
 }

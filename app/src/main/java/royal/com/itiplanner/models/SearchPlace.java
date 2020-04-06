@@ -5,6 +5,15 @@ public class SearchPlace {
   private String photoReference;
   private double ratings;
   private double latitude,longitude;
+  private int numberOfDays,budget;
+
+  public int getNumberOfDays() { return numberOfDays; }
+
+  public void setNumberOfDays(int numberOfDays) { this.numberOfDays = numberOfDays; }
+
+  public void setBudget(int budget) { this.budget = budget; }
+
+  public int getBudget() { return budget; }
 
   public void setLatitude(double latitude) { this.latitude = latitude; }
 
