@@ -49,6 +49,7 @@ public class DisplayPlaceList extends Fragment {
     text.setText("Your Itinerary with a shortest path starting from "+ selectedPlaces.get(0).getPlaceName() + " is displayed below");
 
 
+
     share.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
