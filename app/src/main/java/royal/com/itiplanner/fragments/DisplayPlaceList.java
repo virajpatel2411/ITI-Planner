@@ -48,6 +48,8 @@ public class DisplayPlaceList extends Fragment {
     iti_name.setText(name);
     text.setText("Your Itinerary with a shortest path starting from "+ selectedPlaces.get(0).getPlaceName() + " is displayed below");
 
+
+
     share.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
@@ -56,7 +58,7 @@ public class DisplayPlaceList extends Fragment {
         int count=1;
         for(SearchPlace s : selectedPlaces)
         {
-          shareBody = shareBody + String.valueOf(count) + ") " +  s.getPlaceName() + "\n";
+          shareBody = shareBody + count + ") " +  s.getPlaceName() + "\n";
           count++;
         }
 
@@ -66,6 +68,7 @@ public class DisplayPlaceList extends Fragment {
         startActivity(Intent.createChooser(i,"Share Itinerary using"));
       }
     });
+
 
     //selectedPlaces.add(0,airport);
     outputPlacesList = generate(selectedPlaces);

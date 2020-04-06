@@ -104,19 +104,6 @@ public class MainActivity extends AppCompatActivity {
                         edtEmail.setError("Please enter a valid Email ID!");
                         break;
                     }
-                    if (TextUtils.isEmpty(edtPass.getText().toString()) || edtPass.getText().toString().length() < 6) {
-                        edtPass.setError(" Password too short. Minimum 6 alphanumeric characters.");
-                        Toast.makeText(MainActivity.this, "pass<6", Toast.LENGTH_SHORT).show();
-                        break;
-                    }
-                    if (Pattern.matches("[a-zA-Z]+$", edtPass.getText().toString())) {
-                        edtPass.setError("Please at least use a character from 0-9.");
-                        break;
-                    }
-                    if (Pattern.matches("[0-9]+$", edtPass.getText().toString())) {
-                        edtPass.setError("Please at least use a character from A-Z.");
-                        break;
-                    }
                     if (!(TextUtils.isEmpty(edtEmail.getText().toString()) &&
                             Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText().toString()).matches()) &&
                             !Pattern.matches("[0-9]+$", edtPass.getText().toString()) &&
@@ -162,11 +149,16 @@ public class MainActivity extends AppCompatActivity {
 
 
                                 } else {
-                                    Toast.makeText(MainActivity.this, "Login failed. Incorrect details.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Login Failed.\nPlease Enter Correct Credentials.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
 
+                        break;
+                    }
+                    else
+                    {
+                        edtPass.setError("Please Enter a valid Password.");
                         break;
                     }
                 }
@@ -216,6 +208,13 @@ public class MainActivity extends AppCompatActivity {
                             //userModel.setPassWord(edtPass.getText().toString());
                             myRef.child(key).setValue(userModel);
                             //Toast.makeText(SignUpActivity.this, myRef.child(key).getParent().toString(), Toast.LENGTH_SHORT).show();
+
+                            SharedPreferences sharedPreferences = getSharedPreferences("ITIPlanner", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("NAME_KEY", user.getDisplayName());
+                            editor.putString("UID_KEY", key);
+
+                            editor.commit();
 
                             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                             startActivity(intent);

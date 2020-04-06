@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -17,17 +18,18 @@ import royal.com.itiplanner.adapters.DisplayItineraryAdapter;
 import royal.com.itiplanner.models.FinalModel;
 import royal.com.itiplanner.models.PlaceModel;
 
-public class SpecificItineraryDisplay extends Fragment {
+public class SpecificItineraryHistoryFragment extends Fragment {
 
   ListView listView;
   TextView txtDays,txtBudget;
   ArrayList<String> days,places,prices;
   NestedScrollView scrollView;
+  Button btnBack;
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
-    View rootView = inflater.inflate(R.layout.fragment_specific_itinerary,container,false);
+    View rootView = inflater.inflate(R.layout.fragment_specific_itinerary_history,container,false);
 
     FinalModel finalModel = (FinalModel) getArguments().getSerializable("FINAL");
     String city = getArguments().getString("CITY");
@@ -36,7 +38,7 @@ public class SpecificItineraryDisplay extends Fragment {
     scrollView = rootView.findViewById(R.id.scroll);
     txtBudget = rootView.findViewById(R.id.spec_budget);
     txtDays = rootView.findViewById(R.id.spec_days);
-
+    btnBack = rootView.findViewById(R.id.history_back);
     days = new ArrayList<>();
     places = new ArrayList<>();
     prices = new ArrayList<>();
@@ -79,6 +81,12 @@ public class SpecificItineraryDisplay extends Fragment {
             break;
         }
         return false;
+      }
+    });
+
+    btnBack.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        getActivity().onBackPressed();
       }
     });
 
