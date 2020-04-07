@@ -50,6 +50,7 @@ public class DisplayPlaceList extends Fragment {
         + selectedPlaces.get(0).getPlaceName()
         + " is displayed below");
 
+
     share.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
