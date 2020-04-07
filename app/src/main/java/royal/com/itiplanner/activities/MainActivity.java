@@ -104,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
                         edtEmail.setError("Please enter a valid Email ID!");
                         break;
                     }
+                    if(TextUtils.isEmpty(edtPass.getText().toString()))
+                    {
+                        edtPass.setError("Please enter Passsword!");
+                        break;
+                    }
                     if (!(TextUtils.isEmpty(edtEmail.getText().toString()) &&
                             Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText().toString()).matches()) &&
                             !Pattern.matches("[0-9]+$", edtPass.getText().toString()) &&

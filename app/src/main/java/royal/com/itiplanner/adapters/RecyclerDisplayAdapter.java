@@ -30,7 +30,6 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
   Context context;
   ArrayList<DisplayItineraryModel> arrayList;
   String fragmentName;
-  String displayCity;
   String[] afterWords = {"Weekend","Extravaganza","Winter","Family","Summer","Bonus","Festival"};
   public RecyclerDisplayAdapter(Context context, ArrayList<DisplayItineraryModel> arrayList,String fragmentName) {
 
@@ -52,17 +51,8 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
 
 
     viewHolder.txtDays.setText(arrayList.get(i).getFinalModel().getDaysCount());
-    String city = arrayList.get(i).getCity();
-    displayCity="";
-    for(int j=0;j<city.length();j++)
-    {
-      if(city.charAt(j)==',' || city.charAt(j)=='1'|| city.charAt(j)=='2' || city.charAt(j)=='3' || city.charAt(j)=='4' || city.charAt(j)=='5' || city.charAt(j)=='5' || city.charAt(j)=='6'|| city.charAt(j)=='7' || city.charAt(j)=='8' || city.charAt(j)=='9' || city.charAt(j)==' '){
-        break;
-      }
-      displayCity += city.charAt(j);
-    }
-    displayCity += " " + afterWords[new Random().nextInt(7)];
-    viewHolder.txtPlace.setText(displayCity);
+
+    viewHolder.txtPlace.setText(viewHolder.displayCitys.get(i));
     int amt=0;
     for(PlaceModel placeModel : arrayList.get(i).getFinalModel().getPlaceModels()){
       amt += Integer.valueOf(placeModel.getPrice());
@@ -92,7 +82,7 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
         }
         Bundle bundle = new Bundle();
         bundle.putSerializable("FINAL",finalModel);
-        bundle.putString("CITY",displayCity);
+        bundle.putString("CITY",viewHolder.displayCitys.get(i));
         fragment.setArguments(bundle);
         FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.frame,fragment).addToBackStack("homeFragment").commit();
@@ -108,12 +98,39 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
 
     TextView txtPlace, txtBudget, txtDays;
     View mView;
+    ArrayList<String> displayCitys;
+    String displayCity;
+
     public ViewHolder(@NonNull final View itemView) {
       super(itemView);
 
+      displayCitys = new ArrayList<>();
       txtPlace = itemView.findViewById(R.id.dis_place);
       txtBudget = itemView.findViewById(R.id.dis_budget);
       txtDays = itemView.findViewById(R.id.dis_days);
+      for(int i=0;i<arrayList.size();i++) {
+        String city = arrayList.get(i).getCity();
+        displayCity = "";
+        for (int j = 0; j < city.length(); j++) {
+          if (city.charAt(j) == ','
+              || city.charAt(j) == '1'
+              || city.charAt(j) == '2'
+              || city.charAt(j) == '3'
+              || city.charAt(j) == '4'
+              || city.charAt(j) == '5'
+              || city.charAt(j) == '5'
+              || city.charAt(j) == '6'
+              || city.charAt(j) == '7'
+              || city.charAt(j) == '8'
+              || city.charAt(j) == '9'
+              || city.charAt(j) == ' ') {
+            break;
+          }
+          displayCity += city.charAt(j);
+        }
+        displayCity += " " + afterWords[new Random().nextInt(7)];
+        displayCitys.add(displayCity);
+      }
 
       mView = itemView;
 
