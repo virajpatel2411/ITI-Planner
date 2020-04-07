@@ -130,6 +130,7 @@
             android:background="@drawable/bg_border"
             android:backgroundTint="#E0DBDB"
             android:layout_weight="1"
+            android:id="@+id/iti_back"
             android:textAllCaps="false"
             android:text="Back"></Button>
         <Button
@@ -139,6 +140,7 @@
             android:background="@drawable/bg_border"
             android:backgroundTint="#E0DBDB"
             android:layout_margin="8dp"
+            android:id="@+id/iti_next"
             android:textAllCaps="false"
             android:text="Next"></Button>
       </LinearLayout>

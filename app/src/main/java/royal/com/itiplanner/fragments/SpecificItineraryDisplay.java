@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import royal.com.itiplanner.models.PlaceModel;
 public class SpecificItineraryDisplay extends Fragment {
 
   ListView listView;
+  Button btnNext, btnBack;
   TextView txtDays,txtBudget;
   ArrayList<String> days,places,prices;
   NestedScrollView scrollView;
@@ -28,6 +30,9 @@ public class SpecificItineraryDisplay extends Fragment {
       @Nullable Bundle savedInstanceState) {
 
     View rootView = inflater.inflate(R.layout.fragment_specific_itinerary,container,false);
+
+    btnBack = rootView.findViewById(R.id.iti_back);
+    btnNext = rootView.findViewById(R.id.iti_next);
 
     FinalModel finalModel = (FinalModel) getArguments().getSerializable("FINAL");
     String city = getArguments().getString("CITY");
@@ -79,6 +84,12 @@ public class SpecificItineraryDisplay extends Fragment {
             break;
         }
         return false;
+      }
+    });
+
+    btnBack.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        getActivity().onBackPressed();
       }
     });
 
