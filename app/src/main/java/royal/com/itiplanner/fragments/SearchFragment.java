@@ -68,10 +68,8 @@ public class SearchFragment extends Fragment {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, final int position,
           long id) {
-        ////////////////////////////////////////////////////////////////////
         myRef = myRef.child(listView.getItemAtPosition(position).toString());
 
-        ///////////////////////////////////////////////////////////////////////////////
         states = new ArrayList<>();
         myRef.addValueEventListener(new ValueEventListener() {
           @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

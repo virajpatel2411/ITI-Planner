@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Random;
 import royal.com.itiplanner.R;
 import royal.com.itiplanner.fragments.SpecificItineraryDisplay;
 import royal.com.itiplanner.fragments.SpecificItineraryHistoryFragment;
@@ -29,6 +30,8 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
   Context context;
   ArrayList<DisplayItineraryModel> arrayList;
   String fragmentName;
+  String displayCity;
+  String[] afterWords = {"Weekend","Extravaganza","Business","Family","Summer"};
   public RecyclerDisplayAdapter(Context context, ArrayList<DisplayItineraryModel> arrayList,String fragmentName) {
 
     this.context = context;
@@ -49,7 +52,17 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
 
 
     viewHolder.txtDays.setText(arrayList.get(i).getFinalModel().getDaysCount());
-    viewHolder.txtPlace.setText(arrayList.get(i).getCity());
+    String city = arrayList.get(i).getCity();
+    displayCity="";
+    for(int j=0;j<city.length();j++)
+    {
+      displayCity += city.charAt(j);
+      if(city.charAt(j)==',' || city.charAt(j)==' '){
+        break;
+      }
+    }
+    displayCity += afterWords[new Random().nextInt(5)];
+    viewHolder.txtPlace.setText(displayCity);
     int amt=0;
     for(PlaceModel placeModel : arrayList.get(i).getFinalModel().getPlaceModels()){
       amt += Integer.valueOf(placeModel.getPrice());
@@ -79,7 +92,7 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
         }
         Bundle bundle = new Bundle();
         bundle.putSerializable("FINAL",finalModel);
-        bundle.putString("CITY",city);
+        bundle.putString("CITY",displayCity);
         fragment.setArguments(bundle);
         FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.frame,fragment).addToBackStack("homeFragment").commit();

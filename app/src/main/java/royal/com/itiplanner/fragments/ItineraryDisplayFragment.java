@@ -63,10 +63,13 @@ public class ItineraryDisplayFragment extends Fragment {
     for(i=0;i<finalModels.size();i++)
     {
       DisplayItineraryModel displayItineraryModel = new DisplayItineraryModel();
+
       displayItineraryModel.setFinalModel(finalModels.get(i));
       displayItineraryModel.setCity(city.get(i));
       arrayList.add(displayItineraryModel);
     }
+
+
     Log.e("abc", "viraj");
     RecyclerDisplayAdapter recyclerDisplayAdapter =
         new RecyclerDisplayAdapter(rootView.getContext(), arrayList,"Search");

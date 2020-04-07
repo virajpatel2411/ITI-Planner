@@ -1,6 +1,5 @@
 package royal.com.itiplanner.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,10 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.Button;
 import android.widget.TextView;
-import java.io.Serializable;
 import java.util.ArrayList;
 import royal.com.itiplanner.R;
 import royal.com.itiplanner.adapters.DisplayPlaceAdapter;
@@ -21,11 +18,11 @@ import royal.com.itiplanner.models.SearchPlace;
 
 public class CreateItinerary extends Fragment {
 
-  TextView iti_name,text,empty_check_text;
+  TextView iti_name, text, empty_check_text;
   RecyclerView iti_list;
   ArrayList<SearchPlace> selectedPlaces;
   SearchPlace airport;
-  Button back,showTrip;
+  Button back, showTrip;
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -45,39 +42,47 @@ public class CreateItinerary extends Fragment {
 
     iti_name.setText(name);
     text.setText("Your Customize Itinerary is displayed below");
-    if(selectedPlaces.size() == 1)
+    if (selectedPlaces.size() == 1) {
       empty_check_text.setText("Your Itinerary is Empty, Please select atleast one places");
+    }
 
     airport = selectedPlaces.remove(0);
 
-    iti_list.setLayoutManager(new GridLayoutManager(rootView.getContext(),2));
-    DisplayPlaceAdapter displayPlaceAdapter = new DisplayPlaceAdapter(selectedPlaces,rootView.getContext());
+    iti_list.setLayoutManager(new GridLayoutManager(rootView.getContext(), 2));
+    DisplayPlaceAdapter displayPlaceAdapter =
+        new DisplayPlaceAdapter(selectedPlaces, rootView.getContext());
     iti_list.setAdapter(displayPlaceAdapter);
 
     back.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         Fragment fragment = new PlaceSearchDisplay();
         Bundle bundle = new Bundle();
-        bundle.putString("Place",name);
+        bundle.putString("Place", name);
         fragment.setArguments(bundle);
-        getFragmentManager().beginTransaction().replace(R.id.frame,fragment).addToBackStack("homeFragment").commit();
+        getFragmentManager().beginTransaction()
+            .replace(R.id.frame, fragment)
+            .addToBackStack("homeFragment")
+            .commit();
       }
     });
 
     showTrip.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        if(selectedPlaces.size() == 1)
-        {
+        if (selectedPlaces.size() == 1) {
 
         }
         Fragment fragment = new DisplayPlaceList();
         Bundle bundle = new Bundle();
+        bundle.putString("Name", name);
+        selectedPlaces.add(0, airport);
+        bundle.putSerializable("SelectedPlaces", selectedPlaces);
         bundle.putString("Name",name);
-        selectedPlaces.add(0,airport);
-        bundle.putSerializable("SelectedPlaces",selectedPlaces);
         //bundle.putSerializable("Airport", (Serializable) airport);
         fragment.setArguments(bundle);
-        getFragmentManager().beginTransaction().replace(R.id.frame,fragment).addToBackStack("homeFragment").commit();
+        getFragmentManager().beginTransaction()
+            .replace(R.id.frame, fragment)
+            .addToBackStack("homeFragment")
+            .commit();
       }
     });
 

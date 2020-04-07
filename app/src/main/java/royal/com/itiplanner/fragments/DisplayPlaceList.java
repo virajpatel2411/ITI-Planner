@@ -3,6 +3,7 @@ package royal.com.itiplanner.fragments;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import royal.com.itiplanner.R;
 import royal.com.itiplanner.adapters.DisplayPlaceAdapter;
+import royal.com.itiplanner.models.FinalModel;
+import royal.com.itiplanner.models.PlaceModel;
 import royal.com.itiplanner.models.SearchPlace;
 
 public class DisplayPlaceList extends Fragment {
@@ -26,7 +36,19 @@ public class DisplayPlaceList extends Fragment {
   ArrayList<SearchPlace> selectedPlaces;
   ArrayList<SearchPlace> outputPlacesList;
   SearchPlace airport;
+  PlaceModel placeModel;
   Button share, download;
+  FirebaseDatabase database = FirebaseDatabase.getInstance();
+  DatabaseReference myRef;
+  FinalModel finalModel;
+  ArrayList<PlaceModel> placeModels;
+  double ratings;
+  int total_days,total_budget;
+  String key;
+  private FirebaseAuth mAuth;
+  int count = 1;
+  String[] tags = {"HillStation", "Adventure", "Heritage", "Desert", "Beach"};
+  ArrayList<String> tagList;
 
   @RequiresApi(api = Build.VERSION_CODES.KITKAT) @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +58,41 @@ public class DisplayPlaceList extends Fragment {
     final String name = getArguments().getString("Name");
     selectedPlaces = (ArrayList<SearchPlace>) getArguments().getSerializable("SelectedPlaces");
     //airport = (SearchPlace) getArguments().getSerializable("Airport");
+    key = getArguments().getString("Name");
+    placeModels = new ArrayList<>();
+    Random random = new Random();
+    int no = random.nextInt(5);
+    tagList = new ArrayList<>();
+    mAuth = FirebaseAuth.getInstance();
+    myRef = database.getReference("Itinerary");
+    finalModel = new FinalModel();
+    for(int i=1;i<selectedPlaces.size();i++)
+    {
+      placeModel = new PlaceModel();
+      placeModel.setNoOfDays(String.valueOf(selectedPlaces.get(i).getNumberOfDays()));
+      placeModel.setPlace(selectedPlaces.get(i).getPlaceName());
+      placeModel.setPrice(String.valueOf(selectedPlaces.get(i).getBudget()));
+      placeModels.add(placeModel);
+      ratings += selectedPlaces.get(i).getRatings();
+      total_days += selectedPlaces.get(i).getNumberOfDays();
+      total_budget += selectedPlaces.get(i).getBudget();
+    }
+
+    int no2 = no + random.nextInt(5);
+    for(int i=no;i<=no2;i++)
+    {
+      tagList.add(tags[i]);
+    }
+    if(tagList.isEmpty())
+    {
+      tagList.add(tags[random.nextInt(5)]);
+    }
+
+    ratings /= (double) selectedPlaces.size();
+    finalModel.setDaysCount(String.valueOf(total_days));
+    finalModel.setPlaceModels(placeModels);
+    finalModel.setRatings(String.valueOf(ratings));
+    finalModel.setTags(tagList);
 
     iti_name = rootView.findViewById(R.id.iti_name);
     text = rootView.findViewById(R.id.text);
@@ -53,6 +110,10 @@ public class DisplayPlaceList extends Fragment {
 
     share.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
+
+        myRef = myRef.child(key);
+
+        myRef.child(key+" "+mAuth.getUid()).setValue(finalModel);
 
         String shareBody = "";
         shareBody = "Itinerary for " + name + " is :\n";
