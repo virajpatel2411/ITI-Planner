@@ -47,8 +47,11 @@ public class DisplayPlaceList extends Fragment {
   String key;
   private FirebaseAuth mAuth;
   int count = 1;
+  int k=0;
   String[] tags = {"HillStation", "Adventure", "Heritage", "Desert", "Beach"};
   ArrayList<String> tagList;
+  String key_state="", key_city="";
+  int id = 100;
 
   @RequiresApi(api = Build.VERSION_CODES.KITKAT) @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,7 +81,7 @@ public class DisplayPlaceList extends Fragment {
       total_budget += selectedPlaces.get(i).getBudget();
     }
 
-    int no2 = no + random.nextInt(5);
+    int no2 = random.nextInt(5);
     for(int i=no;i<=no2;i++)
     {
       tagList.add(tags[i]);
@@ -108,12 +111,31 @@ public class DisplayPlaceList extends Fragment {
         + " is displayed below");
 
 
+    key_city="";
+    for(k=0;k<key.length();k++)
+    {
+      if(key.charAt(k)==',')
+      {
+        break;
+      }
+      key_city += key.charAt(k);
+    }
+    key_state="";
+    k+=2;
+    for(;k<key.length();k++)
+    {
+      if(key.charAt(k)==',')
+      {
+        break;
+      }
+      key_state += key.charAt(k);
+    }
+
     share.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
-        myRef = myRef.child(key);
 
-        myRef.child(key+" "+mAuth.getUid()).setValue(finalModel);
+        myRef.child(key_state).child(key_city+" "+mAuth.getUid()).setValue(finalModel);
 
         String shareBody = "";
         shareBody = "Itinerary for " + name + " is :\n";
@@ -128,6 +150,7 @@ public class DisplayPlaceList extends Fragment {
         startActivity(Intent.createChooser(i, "Share Itinerary using"));
       }
     });
+
 
     //selectedPlaces.add(0,airport);
     outputPlacesList = generate(selectedPlaces);

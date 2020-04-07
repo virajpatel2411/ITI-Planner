@@ -31,7 +31,7 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
   ArrayList<DisplayItineraryModel> arrayList;
   String fragmentName;
   String displayCity;
-  String[] afterWords = {"Weekend","Extravaganza","Business","Family","Summer"};
+  String[] afterWords = {"Weekend","Extravaganza","Winter","Family","Summer","Bonus","Festival"};
   public RecyclerDisplayAdapter(Context context, ArrayList<DisplayItineraryModel> arrayList,String fragmentName) {
 
     this.context = context;
@@ -56,12 +56,12 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
     displayCity="";
     for(int j=0;j<city.length();j++)
     {
-      displayCity += city.charAt(j);
-      if(city.charAt(j)==',' || city.charAt(j)==' '){
+      if(city.charAt(j)==',' || city.charAt(j)=='1'|| city.charAt(j)=='2' || city.charAt(j)=='3' || city.charAt(j)=='4' || city.charAt(j)=='5' || city.charAt(j)=='5' || city.charAt(j)=='6'|| city.charAt(j)=='7' || city.charAt(j)=='8' || city.charAt(j)=='9' || city.charAt(j)==' '){
         break;
       }
+      displayCity += city.charAt(j);
     }
-    displayCity += afterWords[new Random().nextInt(5)];
+    displayCity += " " + afterWords[new Random().nextInt(7)];
     viewHolder.txtPlace.setText(displayCity);
     int amt=0;
     for(PlaceModel placeModel : arrayList.get(i).getFinalModel().getPlaceModels()){
