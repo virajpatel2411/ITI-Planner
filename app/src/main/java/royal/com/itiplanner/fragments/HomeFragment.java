@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -59,13 +60,14 @@ public class HomeFragment extends Fragment {
     String name;
     UserModel userModel;
     ListView listView;
+    ProgressBar progressBar;
 
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-
+        progressBar = rootView.findViewById(R.id.progress);
         txtView = rootView.findViewById(R.id.txt_name);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ITIPlanner", MODE_PRIVATE);
         String strName = sharedPreferences.getString("NAME_KEY", "");
@@ -115,7 +117,7 @@ public class HomeFragment extends Fragment {
 
 
         private void displayRecycler(ArrayList<String> states){
-
+            progressBar.setVisibility(View.INVISIBLE);
             ArrayList<String> newStates = new ArrayList<>();
             newStates.add(states.get(0));
             for(String s:states){
@@ -161,6 +163,8 @@ public class HomeFragment extends Fragment {
         }
 
         @Override protected Void doInBackground(Void... voids) {
+            progressBar.setIndeterminate(true);
+            progressBar.setVisibility(View.VISIBLE);
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
             String forecastJsonStr = null;

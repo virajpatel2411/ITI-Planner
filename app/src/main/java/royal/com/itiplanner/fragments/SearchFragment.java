@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,17 +31,21 @@ public class SearchFragment extends Fragment {
   FirebaseDatabase database;
   DatabaseReference myRef;
   ArrayList<FinalModel> finalModels;
+  ProgressBar progressBar;
 
   @Nullable
   @Override
   public View onCreateView(@NonNull final LayoutInflater inflater,
       @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
     final View rootView = inflater.inflate(R.layout.fragment_search, container, false);
-
+    progressBar = rootView.findViewById(R.id.progress);
     searchView = rootView.findViewById(R.id.search_view);
     listView = rootView.findViewById(R.id.list_search);
     finalModels = new ArrayList<>();
     states = new ArrayList<>();
+
+    progressBar.setIndeterminate(true);
+    progressBar.setVisibility(View.VISIBLE);
 
     database = FirebaseDatabase.getInstance();
     myRef = database.getReference("Itinerary");
@@ -56,6 +61,7 @@ public class SearchFragment extends Fragment {
             new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1,
                 states);
 
+        progressBar.setVisibility(View.INVISIBLE);
         listView.setAdapter(arrayAdapter);
       }
 

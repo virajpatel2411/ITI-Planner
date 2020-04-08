@@ -47,11 +47,11 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linear1"
-        android:orientation="vertical">
+        >
 
 
 
@@ -67,16 +67,25 @@
             android:layout_marginBottom="8dp">
 
         </TextView>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/text_1"
+            android:id="@+id/progress">
+
+        </ProgressBar>
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_below="@+id/text_1"
             android:id="@+id/list_home">
 
         </ListView>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

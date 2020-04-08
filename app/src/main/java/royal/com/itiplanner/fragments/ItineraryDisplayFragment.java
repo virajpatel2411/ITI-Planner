@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -34,6 +35,7 @@ public class ItineraryDisplayFragment extends Fragment {
   private StorageReference mStorageRef;
   ArrayList<ImageView> bitmaps;
   ViewPager viewPager;
+  ProgressBar progressBar;
   View rootView;
   String state;
   int j;
@@ -44,6 +46,7 @@ public class ItineraryDisplayFragment extends Fragment {
 
     rootView = inflater.inflate(R.layout.fragment_display, container, false);
     recyclerView = rootView.findViewById(R.id.rec_display);
+    progressBar = rootView.findViewById(R.id.progress);
     viewPager = rootView.findViewById(R.id.img_slider);
     ArrayList<FinalModel> finalModels =
         (ArrayList<FinalModel>) getArguments().getSerializable("FINAL");
@@ -59,6 +62,9 @@ public class ItineraryDisplayFragment extends Fragment {
 
     int i = 0;
 
+
+    progressBar.setIndeterminate(true);
+    progressBar.setVisibility(View.VISIBLE);
 
     for(i=0;i<finalModels.size();i++)
     {
@@ -102,6 +108,7 @@ public class ItineraryDisplayFragment extends Fragment {
 
       Log.e("abc", "jgrjig");
 
+      progressBar.setVisibility(View.INVISIBLE);
       BitmapImageAdapter bitmapImageAdapter =
           new BitmapImageAdapter(context, bitmaps);
       viewPager.setAdapter(bitmapImageAdapter);

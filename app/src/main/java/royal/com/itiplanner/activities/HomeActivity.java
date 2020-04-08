@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
 
     HomeFragment homeFragment = new HomeFragment();
 
-    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     fragmentTransaction.add(R.id.frame, homeFragment);
     fragmentTransaction.commit();
     navigationView.setOnNavigationItemSelectedListener(
@@ -43,7 +43,6 @@ public class HomeActivity extends AppCompatActivity {
                 fragment = new HomeFragment();
                 break;
               case R.id.my_profile:
-                //Toast.makeText(HomeActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                 fragment = new ProfileFragment();
                 break;
               case R.id.search:
