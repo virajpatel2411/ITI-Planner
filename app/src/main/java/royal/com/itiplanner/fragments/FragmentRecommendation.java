@@ -25,76 +25,89 @@ import royal.com.itiplanner.adapters.BitmapImageAdapter;
 import royal.com.itiplanner.adapters.RecyclerDisplayAdapter;
 import royal.com.itiplanner.models.DisplayItineraryModel;
 import royal.com.itiplanner.models.FinalModel;
+import royal.com.itiplanner.models.HomePageItineraryModel;
+import royal.com.itiplanner.models.PlaceModel;
 
-public class ItineraryDisplayFragment extends Fragment {
-
-  RecyclerView recyclerView;
-  ArrayList<DisplayItineraryModel> arrayList;
-  private FirebaseStorage storage;
-  private StorageReference mStorageRef;
-  ArrayList<ImageView> bitmaps;
+public class FragmentRecommendation extends Fragment {
   ViewPager viewPager;
-  View rootView;
+  FirebaseStorage storage;
+  StorageReference mStorageRef;
   String state;
-  int j;
-
+  RecyclerView recyclerView;
+  ArrayList<String> places;
+  ArrayList<ImageView> bitmaps;
+  ArrayList<HomePageItineraryModel> arrayList;
+  ArrayList<DisplayItineraryModel> displayItineraryModels;
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-
-    rootView = inflater.inflate(R.layout.fragment_display, container, false);
-    recyclerView = rootView.findViewById(R.id.rec_display);
+    View rootView = inflater.inflate(R.layout.fragment_display,container,false);
     viewPager = rootView.findViewById(R.id.img_slider);
-    ArrayList<FinalModel> finalModels =
-        (ArrayList<FinalModel>) getArguments().getSerializable("FINAL");
-    bitmaps = new ArrayList<>();
-    ArrayList<String> city = getArguments().getStringArrayList("CITY");
-    state = getArguments().getString("STATE");
-    //bitmaps = getArguments().getParcelableArrayList("IMAGES");
-    Log.e("viraj", finalModels.toString());
-    //Log.v("virajp", String.valueOf(bitmaps.size()));
-    //Log.v("virajp",String.valueOf(bitmaps.get(0)));
+    recyclerView = rootView.findViewById(R.id.rec_display);
     storage = FirebaseStorage.getInstance();
-    arrayList = new ArrayList<>();
-
-    int i = 0;
 
 
-    for(i=0;i<finalModels.size();i++)
-    {
+    bitmaps = new ArrayList<>();
+    state = getArguments().getString("state");
+    places = getArguments().getStringArrayList("places");
+    arrayList = (ArrayList<HomePageItineraryModel>) getArguments().getSerializable("model");
+
+
+    displayItineraryModels = new ArrayList<>();
+
+    for(HomePageItineraryModel homePageItineraryModel:arrayList){
+      if(!homePageItineraryModel.getState().equals(state)){
+        continue;
+      }
+      FinalModel finalModel = new FinalModel();
+      ArrayList<PlaceModel> placeModels = new ArrayList<>();
       DisplayItineraryModel displayItineraryModel = new DisplayItineraryModel();
-
-      displayItineraryModel.setFinalModel(finalModels.get(i));
-      displayItineraryModel.setCity(city.get(i));
-      arrayList.add(displayItineraryModel);
+      displayItineraryModel.setCity(homePageItineraryModel.getPlace());
+      int per_days = (int) (Double.valueOf(homePageItineraryModel.getNo_of_days())/places.size());
+      int per_price = (int) (Double.valueOf(homePageItineraryModel.getAmt())/places.size());
+      int tot_days=0,tot_price=0;
+      for(String placeName:places){
+        PlaceModel placeModel = new PlaceModel();
+        placeModel.setPlace(placeName);
+        placeModel.setPrice(String.valueOf(per_price));
+        tot_price += per_price;
+        placeModel.setNoOfDays(String.valueOf(per_days));
+        tot_days += per_days;
+        placeModels.add(placeModel);
+      }
+      //int total_days = (int) tot_days;
+      finalModel.setPlaceModels(placeModels);
+      finalModel.setDaysCount(String.valueOf(tot_days));
+      ArrayList<String> temp = new ArrayList<>();
+      finalModel.setTags(temp);
+      finalModel.setRatings("");
+      displayItineraryModel.setFinalModel(finalModel);
+      displayItineraryModels.add(displayItineraryModel);
     }
 
-
-    Log.e("abc", "viraj");
     RecyclerDisplayAdapter recyclerDisplayAdapter =
-        new RecyclerDisplayAdapter(rootView.getContext(), arrayList,"Search");
+        new RecyclerDisplayAdapter(rootView.getContext(), displayItineraryModels,"Search");
     recyclerView.setAdapter(recyclerDisplayAdapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
-    new PostTask(getActivity().getApplicationContext(), bitmaps).execute();
+
+    Log.e("abc","before");
+    new PostTask(getActivity().getApplicationContext(),bitmaps).execute();
+    Log.e("abc","after");
 
     return rootView;
   }
 
-  private class PostTask extends AsyncTask<Void, Void, String> {
+  private class PostTask extends AsyncTask<Void, Void, Void> {
     Context context;
     ArrayList<ImageView> bitmaps;
+    int j;
 
     public PostTask(Context context, ArrayList<ImageView> bitmaps) {
       this.context = context;
       this.bitmaps = bitmaps;
     }
 
-    @Override protected void onPostExecute(String aVoid) {
-
-
-
-    }
 
     public void displayImage()
     {
@@ -107,9 +120,10 @@ public class ItineraryDisplayFragment extends Fragment {
       viewPager.setAdapter(bitmapImageAdapter);
     }
 
-    @Override protected String doInBackground(Void... voids) {
+    @Override protected Void doInBackground(Void... voids) {
+      Log.e("abc","async");
 
-     for (j = 1; j <= 5; j++) {
+      for (j = 1; j <= 5; j++) {
 
 
         mStorageRef = storage.getReferenceFromUrl("gs://iti-planner.appspot.com").child(state);
@@ -124,9 +138,8 @@ public class ItineraryDisplayFragment extends Fragment {
                 Glide.with(context).load(url).into(imageView);
                 Log.e("abc","after");
                 bitmaps.add(imageView);
-                if(bitmaps.size()==5)
-                {
-                  Log.e("abc","method called");
+                if(bitmaps.size()==5) {
+                  Log.e("abc", "method called");
                   displayImage();
                 }
               }
@@ -134,7 +147,7 @@ public class ItineraryDisplayFragment extends Fragment {
             });
       }
 
-        return "hello";
+      return null;
 
     }
   }

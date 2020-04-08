@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                                 } else {
-                                    Toast.makeText(MainActivity.this, "Login Failed.\nPlease Enter Correct Credentials.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Login Failed.\nPlease Enter Valid Credentials.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

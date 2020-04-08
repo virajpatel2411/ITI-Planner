@@ -1,14 +1,21 @@
 package royal.com.itiplanner.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import royal.com.itiplanner.R;
 import royal.com.itiplanner.models.HomePageItineraryModel;
@@ -17,13 +24,14 @@ public class RecyclerHomeAdapter extends RecyclerView.Adapter<RecyclerHomeAdapte
 
     private ArrayList<HomePageItineraryModel> homePageItineraryModels;
     private Context context;
-    private int[] imgs;
+    ArrayList<String> imageViews;
 
-    public RecyclerHomeAdapter(Context context,ArrayList<HomePageItineraryModel> homePageItineraryModels,int imgs[])
+    public RecyclerHomeAdapter(Context context,ArrayList<HomePageItineraryModel> homePageItineraryModels,
+        ArrayList<String> imageViews)
     {
         this.context = context;
         this.homePageItineraryModels = homePageItineraryModels;
-        this.imgs = imgs;
+        this.imageViews = imageViews;
     }
 
     @NonNull
@@ -37,11 +45,12 @@ public class RecyclerHomeAdapter extends RecyclerView.Adapter<RecyclerHomeAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-
-        ImageAdapter imageAdapter = new ImageAdapter(context,imgs);
-        viewHolder.viewPager.setAdapter(imageAdapter);
-        //Log.e("Viraj",viewHolder.txtNoOfPersons.getText().toString());
-        viewHolder.txtNoOfPersons.setText(homePageItineraryModels.get(i).getNo_of_people());
+        //set viewpager
+        Log.e("virajj",imageViews.size()+"");
+        Log.e("virajj",imageViews.get(i).toString());
+        Glide.with(context).load(imageViews.get(i)).into(viewHolder.imageView);
+        //viewHolder.imageView.setImageDrawable(imageView.getDrawable());
+        viewHolder.txtNoOfPersons.setText(homePageItineraryModels.get(i).getNo_of_days());
         viewHolder.txtBudget.setText(homePageItineraryModels.get(i).getAmt());
         viewHolder.txtPlace.setText(homePageItineraryModels.get(i).getPlace());
     }
@@ -53,13 +62,13 @@ public class RecyclerHomeAdapter extends RecyclerView.Adapter<RecyclerHomeAdapte
 
     public static  class ViewHolder extends RecyclerView.ViewHolder {
 
-        ViewPager viewPager;
+        ImageView imageView;
         TextView txtPlace, txtBudget, txtNoOfPersons;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            viewPager = itemView.findViewById(R.id.img_slider);
+            imageView = itemView.findViewById(R.id.img_slider);
             txtPlace = itemView.findViewById(R.id.rec_place);
             txtBudget = itemView.findViewById(R.id.rec_budget);
             txtNoOfPersons = itemView.findViewById(R.id.rec_no_of_person);

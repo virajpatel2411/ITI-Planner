@@ -1,23 +1,48 @@
 package royal.com.itiplanner.fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import royal.com.itiplanner.R;
 import royal.com.itiplanner.adapters.RecyclerHomeAdapter;
 import royal.com.itiplanner.models.HomePageItineraryModel;
@@ -33,7 +58,7 @@ public class HomeFragment extends Fragment {
     TextView txtView;
     String name;
     UserModel userModel;
-    RecyclerView recyclerView;
+    ListView listView;
 
 
     @Override
@@ -46,6 +71,7 @@ public class HomeFragment extends Fragment {
         String strName = sharedPreferences.getString("NAME_KEY", "");
         String personName = "";
 
+        mAuth = FirebaseAuth.getInstance();
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
         if (acct != null) {
             personName = acct.getDisplayName();
@@ -57,28 +83,157 @@ public class HomeFragment extends Fragment {
 
         txtView.setText(strName);
 
-        String place[] = {"Kerala","Goa","Chennai","Kashmir","Shimla"};
-        String amt[] = {"4000","5000","6000","7000","8000"};
-        String no_of_people[] = {"4","5","6","7","8"};
-        String no_of_days[] = {"4","5","7","5","4"};
-        int imgs[] = {R.drawable.one,R.drawable.two,R.drawable.three,R.drawable.one,R.drawable.two};
-
         ArrayList<HomePageItineraryModel> arrayList = new ArrayList<>();
-        for(int i=0;i<amt.length;i++)
-        {
-            HomePageItineraryModel homePageItineraryModel = new HomePageItineraryModel();
-            homePageItineraryModel.setAmt(amt[i]);
-            homePageItineraryModel.setNo_of_days(no_of_days[i]);
-            homePageItineraryModel.setNo_of_people(no_of_people[i]);
-            homePageItineraryModel.setPlace(place[i]);
-            arrayList.add(homePageItineraryModel);
+
+        listView = rootView.findViewById(R.id.list_home);
+
+
+        new FetchData(rootView.getContext(),listView,arrayList).execute();
+
+
+        return rootView;
+    }
+
+    private class FetchData extends AsyncTask<Void,Void,Void>{
+
+        ListView listView;
+        ArrayList<HomePageItineraryModel> arrayList;
+        ArrayList<String> places;
+        Context context;
+        int i=0,k=1;
+        private FirebaseStorage storage;
+        private StorageReference mStorageRef;
+        String state;
+        ArrayList<String> imageViews;
+        ArrayList<String> states;
+
+        public FetchData(Context context,ListView listView, ArrayList<HomePageItineraryModel> arrayList) {
+            this.listView = listView;
+            this.arrayList = arrayList;
+            this.context = context;
         }
 
-        recyclerView = rootView.findViewById(R.id.rec_home);
-        RecyclerHomeAdapter
-            recyclerHomeAdapter = new RecyclerHomeAdapter(rootView.getContext(),arrayList,imgs);
-        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-        recyclerView.setAdapter(recyclerHomeAdapter);
-        return rootView;
+
+        private void displayRecycler(ArrayList<String> states){
+
+            ArrayList<String> newStates = new ArrayList<>();
+            newStates.add(states.get(0));
+            for(String s:states){
+                if(!newStates.contains(s)){
+                    newStates.add(s);
+                }
+            }
+
+            final ArrayAdapter arrayAdapter =
+                new ArrayAdapter(context, android.R.layout.simple_list_item_1,
+                    newStates);
+
+
+            getActivity().runOnUiThread(new Runnable() {
+                @Override public void run() {
+                    listView.setAdapter(arrayAdapter);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Fragment fragment = new FragmentRecommendation();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("state",listView.getItemAtPosition(position).toString());
+                            bundle.putStringArrayList("places",places);
+                            bundle.putSerializable("model", arrayList);
+                            fragment.setArguments(bundle);
+                            getFragmentManager().beginTransaction().replace(R.id.frame,fragment).addToBackStack("homeFragment").commit();
+                        }
+                    });
+                }
+            });
+
+
+
+            /*Log.e("viraj",""+imageViews.size());
+            RecyclerHomeAdapter
+                recyclerHomeAdapter = new RecyclerHomeAdapter(recyclerView.getContext(),arrayList,imageViews);
+            recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+            recyclerView.setAdapter(recyclerHomeAdapter);*/
+
+
+
+        }
+
+        @Override protected Void doInBackground(Void... voids) {
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+            String forecastJsonStr = null;
+            states = new ArrayList<>();
+            storage = FirebaseStorage.getInstance();
+            try {
+
+                URL url = new URL("https://iti-planner.herokuapp.com/user/"+mAuth.getUid());
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+                int lengthOfFile = urlConnection.getContentLength();
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null) {
+                    return null;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line + "\n");
+                }
+
+                if (buffer.length() == 0) {
+                    return null;
+                }
+                forecastJsonStr = buffer.toString();
+                Log.e("abc", forecastJsonStr);
+
+                imageViews = new ArrayList<>();
+                final JSONObject jsonArray = new JSONObject(forecastJsonStr);
+                for (i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(""+i);
+                    HomePageItineraryModel homePageItineraryModel = new HomePageItineraryModel();
+                    homePageItineraryModel.setPlace(jsonObject.getString("id"));
+                    homePageItineraryModel.setAmt(jsonObject.getString("totalCost"));
+                    //Change days count here
+                    homePageItineraryModel.setNo_of_days(jsonObject.getString("daysCount"));
+                    JSONArray jsonArray1 = jsonObject.getJSONArray("places");
+                    places = new ArrayList<>();
+                    for(int j=0;j<jsonArray1.length();j++){
+                        places.add(jsonArray1.get(j).toString());
+                    }
+                    state = jsonObject.getString("city");
+                    homePageItineraryModel.setState(state);
+                    arrayList.add(homePageItineraryModel);
+                    states.add(state);
+                }
+
+                if(states.size()==jsonArray.length())
+                {
+                    displayRecycler(states);
+                }
+
+            } catch (IOException e) {
+                Log.e("abc", "Error ", e);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e("abc", "Error closing stream", e);
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

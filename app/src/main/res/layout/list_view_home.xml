@@ -7,27 +7,27 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v4.view.ViewPager
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:id="@+id/img_slider"
-            ></android.support.v4.view.ViewPager>
+            android:src="@drawable/two"
+            ></ImageView>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="96dp"
             android:layout_below="@+id/img_slider"
             android:layout_margin="8dp"
-
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Kerala"
                 android:id="@+id/rec_place"
-                android:gravity="start"
-                android:textSize="24sp"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
                 android:layout_weight="3"
                 android:textColor="#000"
                 ></TextView>

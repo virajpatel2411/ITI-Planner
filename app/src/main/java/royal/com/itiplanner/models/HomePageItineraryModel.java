@@ -7,6 +7,16 @@ public class HomePageItineraryModel {
     String no_of_days;
     String no_of_people;
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    String state;
+
     public String getAmt() {
         return this.amt;
     }

@@ -60,8 +60,8 @@ public class SpecificItineraryDisplay extends Fragment {
       days.add(day);
       places.add(price);
       prices.add(place);
-      amt += Integer.valueOf(price.trim());
-      no_days += Integer.valueOf(day.trim());
+      amt += Double.valueOf(price.trim());
+      no_days += Double.valueOf(day.trim());
     }
 
     txtBudget.setText(String.valueOf(amt));

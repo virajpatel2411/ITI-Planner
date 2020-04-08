@@ -55,7 +55,7 @@ public  class RecyclerDisplayAdapter extends RecyclerView.Adapter<RecyclerDispla
     viewHolder.txtPlace.setText(viewHolder.displayCitys.get(i));
     int amt=0;
     for(PlaceModel placeModel : arrayList.get(i).getFinalModel().getPlaceModels()){
-      amt += Integer.valueOf(placeModel.getPrice());
+      amt += Double.valueOf(placeModel.getPrice());
     }
     String amount = String.valueOf(amt);
     viewHolder.txtBudget.setText(amount);
