@@ -110,6 +110,7 @@
         android:orientation="vertical"
         android:layout_below="@id/google_sn"
         android:gravity="center"
+        android:layout_marginBottom="16dp"
         >
 
         <TextView

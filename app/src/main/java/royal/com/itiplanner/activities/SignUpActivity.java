@@ -23,7 +23,7 @@ import royal.com.itiplanner.models.UserModel;
 public class SignUpActivity extends AppCompatActivity {
 
   EditText edtEmail, edtMob, edtPass, edtName;
-  Button btnNext;
+  Button btnNext, btnBack;
   private FirebaseAuth mAuth;
   private DatabaseReference myRef;
 
@@ -36,20 +36,34 @@ public class SignUpActivity extends AppCompatActivity {
     edtMob = findViewById(R.id.edt_number);
     edtPass = findViewById(R.id.edt_password);
     edtName = findViewById(R.id.edt_name);
+    btnBack = findViewById(R.id.signup_back);
     mAuth = FirebaseAuth.getInstance();
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     myRef = database.getReference("Users");
 
+    btnBack.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        onBackPressed();
+      }
+    });
+
     btnNext.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         while (true) {
-
+          if (edtName.getText().toString().equals(null)) {
+            edtName.setError("Name cannot be null");
+            break;
+          }
           if (TextUtils.isEmpty(edtEmail.getText().toString()) || !Patterns.EMAIL_ADDRESS.matcher(
               edtEmail.getText().toString()).matches()) {
             edtEmail.setError("Please enter a valid Email ID!");
             break;
+          }
+          if (edtMob.getText().toString().equals(null) || !Patterns.PHONE.matcher(
+              edtMob.getText().toString()).matches()) {
+            edtMob.setError("Enter Valid Mobile Number");
           }
           if (TextUtils.isEmpty(edtPass.getText().toString())
               || edtPass.getText().toString().length() < 6) {
@@ -65,14 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
             edtPass.setError("Please at least use a character from A-Z.");
             break;
           }
-          if (edtName.getText().toString().equals(null)) {
-            edtName.setError("Name cannot be null");
-            break;
-          }
-          if (edtMob.getText().toString().equals(null) || !Patterns.PHONE.matcher(
-              edtMob.getText().toString()).matches()) {
-            edtMob.setError("Enter Valid Mobile Number");
-          }
+
           if (!(TextUtils.isEmpty(edtEmail.getText().toString()) &&
               Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText().toString()).matches()) &&
               !Pattern.matches("[0-9]+$", edtPass.getText().toString()) &&
@@ -107,5 +114,11 @@ public class SignUpActivity extends AppCompatActivity {
         }
       }
     });
+  }
+
+  @Override public void onBackPressed() {
+    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+    startActivity(intent);
+    finish();
   }
 }
