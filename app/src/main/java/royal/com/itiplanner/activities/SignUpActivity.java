@@ -52,7 +52,7 @@ public class SignUpActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         while (true) {
-          if (edtName.getText().toString().equals(null)) {
+          if (TextUtils.isEmpty(edtName.getText().toString())) {
             edtName.setError("Name cannot be null");
             break;
           }
@@ -64,6 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
           if (edtMob.getText().toString().equals(null) || !Patterns.PHONE.matcher(
               edtMob.getText().toString()).matches()) {
             edtMob.setError("Enter Valid Mobile Number");
+            break;
           }
           if (TextUtils.isEmpty(edtPass.getText().toString())
               || edtPass.getText().toString().length() < 6) {
