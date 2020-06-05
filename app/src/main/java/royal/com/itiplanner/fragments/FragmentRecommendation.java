@@ -63,10 +63,11 @@ public class FragmentRecommendation extends Fragment {
       ArrayList<PlaceModel> placeModels = new ArrayList<>();
       DisplayItineraryModel displayItineraryModel = new DisplayItineraryModel();
       displayItineraryModel.setCity(homePageItineraryModel.getPlace());
-      int per_days = (int) (Double.valueOf(homePageItineraryModel.getNo_of_days())/places.size());
+      Log.e("lkh",Integer.valueOf(homePageItineraryModel.getNo_of_days())+ "" +places.size());
+      int per_days = (int) ((double)Integer.valueOf(homePageItineraryModel.getNo_of_days())/places.size());
       int per_price = (int) (Double.valueOf(homePageItineraryModel.getAmt())/places.size());
       if(per_days==0)
-        per_days++;
+         per_days++;
       int tot_days=0,tot_price=0;
       for(String placeName:places){
         PlaceModel placeModel = new PlaceModel();
