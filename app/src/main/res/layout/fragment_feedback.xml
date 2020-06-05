@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/image_1"
+      android:gravity="center_horizontal">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/logo"></ImageView>
+  </LinearLayout>
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/feedback_text"
+      android:orientation="vertical"
+      android:layout_margin="16dp"
+      android:layout_below="@+id/image_1">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/bg_rect_circuler_border"
+        android:hint="Enter your valuable feedback..."
+        android:gravity="start"
+        android:id="@+id/edt_feedback"
+        android:padding="8dp"
+        ></EditText>
+
+
+    <RatingBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:id="@+id/rating_feedback"></RatingBar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_border"
+        android:backgroundTint="#E0DBDB"
+        android:layout_weight="1"
+        android:id="@+id/btn_back_feedback"
+        android:textAllCaps="false"
+        android:text="Back"></Button>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/bg_border"
+        android:backgroundTint="#E0DBDB"
+        android:layout_margin="8dp"
+        android:id="@+id/btn_feedback"
+        android:textAllCaps="false"
+        android:text="Next"></Button>
+    </LinearLayout>
+  </LinearLayout>
+  
+</RelativeLayout>

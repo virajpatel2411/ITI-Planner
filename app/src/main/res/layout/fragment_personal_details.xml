@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/image_1"
+      android:gravity="center_horizontal">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/logo"></ImageView>
+  </LinearLayout>
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/feedback_text"
+      android:orientation="vertical"
+      android:layout_margin="8dp"
+      android:layout_below="@+id/image_1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Name : "
+        android:textColor="#000"
+        android:textSize="24sp"
+        >
+    </TextView>
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text=""
+          android:textColor="#000"
+          android:id="@+id/p_name"
+          android:textSize="24sp"
+          >
+      </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="Email : "
+          android:textColor="#000"
+          android:textSize="24sp"
+          >
+      </TextView>
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text=""
+          android:textColor="#000"
+          android:id="@+id/p_email"
+          android:textSize="24sp"
+          >
+      </TextView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text="Phone : "
+          android:textColor="#000"
+          android:textSize="24sp"
+          >
+      </TextView>
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:text=""
+          android:textColor="#000"
+          android:id="@+id/p_phone"
+          android:textSize="24sp"
+          >
+      </TextView>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_border"
+        android:text="Back"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        android:id="@+id/btn_personal_details"
+        android:backgroundTint="#E0DBDB"
+        ></Button>
+
+  </LinearLayout>
+
+</RelativeLayout>

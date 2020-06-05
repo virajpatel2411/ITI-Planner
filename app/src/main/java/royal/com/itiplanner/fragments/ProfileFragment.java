@@ -29,7 +29,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class ProfileFragment extends Fragment {
     ListView listView;
     Button btnLogout;
-    String[] str = {"Personal Details", "History", "Feedback", "About Us", "Settings"};
+    String[] str = {"Personal Details", "History", "Feedback", "Scheduled Trips" ,"About Us"};
     int[] img = { R.drawable.ic_account, R.drawable.ic_history, R.drawable.ic_feedback, R.drawable.ic_help, R.drawable.ic_settings};
     private FirebaseAuth mAuth;
     private String strGoogle;
@@ -62,6 +62,8 @@ public class ProfileFragment extends Fragment {
                 switch (position)
                 {
                     case 0:
+                        Fragment fragment2 = new PersonalDetailsFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.frame,fragment2).addToBackStack("homeFragment").commit();
                         break;
                     case 1:
                         Fragment fragment = new HistoryFragment();
@@ -69,10 +71,15 @@ public class ProfileFragment extends Fragment {
 
                         break;
                     case 2:
+                        Fragment fragment1 = new FeedbackFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.frame,fragment1).addToBackStack("homeFragment").commit();
+
                         break;
                     case 3:
                         break;
                     case 4:
+                        Fragment fragment3 = new AboutUsFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.frame,fragment3).addToBackStack("homeFragment").commit();
                         break;
                 }
             }
