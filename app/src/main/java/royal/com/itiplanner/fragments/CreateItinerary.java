@@ -31,7 +31,6 @@ public class CreateItinerary extends Fragment {
 
     final String name = getArguments().getString("Name");
     selectedPlaces = (ArrayList<SearchPlace>) getArguments().getSerializable("CreateClass");
-    //airport = (SearchPlace) getArguments().getSerializable("Airport");
 
     iti_name = rootView.findViewById(R.id.iti_name);
     text = rootView.findViewById(R.id.text);
@@ -76,8 +75,7 @@ public class CreateItinerary extends Fragment {
         bundle.putString("Name", name);
         selectedPlaces.add(0, airport);
         bundle.putSerializable("SelectedPlaces", selectedPlaces);
-        bundle.putString("Name",name);
-        //bundle.putSerializable("Airport", (Serializable) airport);
+        bundle.putString("Name", name);
         fragment.setArguments(bundle);
         getFragmentManager().beginTransaction()
             .replace(R.id.frame, fragment)

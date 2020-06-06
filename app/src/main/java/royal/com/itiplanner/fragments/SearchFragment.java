@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +52,8 @@ public class SearchFragment extends Fragment {
     myRef.addValueEventListener(new ValueEventListener() {
       @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-          Log.e("viraj", dataSnapshot1.getKey());
           states.add(dataSnapshot1.getKey());
         }
-        Log.e("viraj", states.get(0));
         arrayAdapter =
             new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1,
                 states);
@@ -80,15 +77,12 @@ public class SearchFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
           @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            /*Log.e("viraj",dataSnapshot1.getKey());
-                            states.add(dataSnapshot1.getValue().toString());*/
 
               FinalModel finalModel = new FinalModel();
               finalModel = dataSnapshot1.getValue(FinalModel.class);
               finalModels.add(finalModel);
               states.add(dataSnapshot1.getKey());
             }
-            //////////////////////////////////////////////////////////////////////////////
 
             Fragment fragment = new ItineraryDisplayFragment();
             Bundle bundle = new Bundle();

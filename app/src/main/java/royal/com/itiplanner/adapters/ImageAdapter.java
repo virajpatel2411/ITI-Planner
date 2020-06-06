@@ -10,34 +10,34 @@ import java.util.ArrayList;
 
 public class ImageAdapter extends PagerAdapter {
 
-    Context context;
-    ArrayList<ImageView> imageViews;
+  Context context;
+  ArrayList<ImageView> imageViews;
 
-    public  ImageAdapter(Context context,ArrayList<ImageView> imageViews)
-    {
-        this.context = context;
-        this.imageViews = imageViews;
-    }
+  public ImageAdapter(Context context, ArrayList<ImageView> imageViews) {
+    this.context = context;
+    this.imageViews = imageViews;
+  }
 
-    @Override
-    public int getCount() {
-        return imageViews.size();
-    }
+  @Override
+  public int getCount() {
+    return imageViews.size();
+  }
 
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
-        return view==(ImageView)o;
-    }
+  @Override
+  public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
+    return view == (ImageView) o;
+  }
 
-    @NonNull
-    @Override
-    public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
-        container.addView(imageViews.get(position),0);
-        return imageViews.get(position);
-    }
+  @NonNull
+  @Override
+  public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
+    container.addView(imageViews.get(position), 0);
+    return imageViews.get(position);
+  }
 
-    @Override
-    public void destroyItem(@NonNull final ViewGroup container, final int position, @NonNull final Object object) {
-        container.removeView((ImageView)object);
-    }
+  @Override
+  public void destroyItem(@NonNull final ViewGroup container, final int position,
+      @NonNull final Object object) {
+    container.removeView((ImageView) object);
+  }
 }

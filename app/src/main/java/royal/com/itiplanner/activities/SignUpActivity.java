@@ -3,9 +3,8 @@ package royal.com.itiplanner.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.util.PatternsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,40 +51,25 @@ public class SignUpActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         while (true) {
-          if (TextUtils.isEmpty(edtName.getText().toString())) {
+          if (!validateName(edtName.getText().toString())) {
             edtName.setError("Name cannot be null");
             break;
-          }
-          if (TextUtils.isEmpty(edtEmail.getText().toString()) || !Patterns.EMAIL_ADDRESS.matcher(
-              edtEmail.getText().toString()).matches()) {
+          } else if (!validateEmail(edtEmail.getText().toString())) {
             edtEmail.setError("Please enter a valid Email ID!");
             break;
-          }
-          if (edtMob.getText().toString().equals(null) || !Patterns.PHONE.matcher(
-              edtMob.getText().toString()).matches()) {
+          } else if (!validateMob(edtMob.getText().toString())) {
             edtMob.setError("Enter Valid Mobile Number");
             break;
-          }
-          if (TextUtils.isEmpty(edtPass.getText().toString())
-              || edtPass.getText().toString().length() < 6) {
+          } else if (!validatePassEmpty(edtPass.getText().toString())) {
             edtPass.setError(" Password too short. Minimum 6 alphanumeric characters.");
-            Toast.makeText(SignUpActivity.this, "pass<6", Toast.LENGTH_SHORT).show();
             break;
-          }
-          if (Pattern.matches("[a-zA-Z]+$", edtPass.getText().toString())) {
+          } else if (!validatePassAlphabet(edtPass.getText().toString())) {
             edtPass.setError("Please at least use a character from 0-9.");
             break;
-          }
-          if (Pattern.matches("[0-9]+$", edtPass.getText().toString())) {
+          } else if (!validatePassNumeric(edtPass.getText().toString())) {
             edtPass.setError("Please at least use a character from A-Z.");
             break;
-          }
-
-          if (!(TextUtils.isEmpty(edtEmail.getText().toString()) &&
-              Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText().toString()).matches()) &&
-              !Pattern.matches("[0-9]+$", edtPass.getText().toString()) &&
-              !Pattern.matches("[a-zA-Z]+$", edtPass.getText().toString())
-          ) {
+          } else {
 
             mAuth.createUserWithEmailAndPassword(edtEmail.getText().toString(),
                 edtPass.getText().toString())
@@ -98,9 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
                       userModel.setName(edtName.getText().toString());
                       userModel.setEmail(edtEmail.getText().toString());
                       userModel.setMobNo(edtMob.getText().toString());
-                      //userModel.setPassWord(edtPass.getText().toString());
                       myRef.child(key).setValue(userModel);
-                      //Toast.makeText(SignUpActivity.this, myRef.child(key).getParent().toString(), Toast.LENGTH_SHORT).show();
                       Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                       startActivity(intent);
                       finish();
@@ -115,6 +97,50 @@ public class SignUpActivity extends AppCompatActivity {
         }
       }
     });
+  }
+
+  public boolean validateName(String name) {
+    if (name.equals("")) {
+      return false;
+    }
+    return true;
+  }
+
+  public boolean validateEmail(String email) {
+    if (email.equals("") || !PatternsCompat.EMAIL_ADDRESS.matcher(
+        email).matches()) {
+      return false;
+    }
+    return true;
+  }
+
+  public boolean validateMob(String mobNo) {
+    if (mobNo.equals("") || (mobNo.length() < 8 || mobNo.length() > 10)) {
+      return false;
+    }
+    return true;
+  }
+
+  public boolean validatePassEmpty(String pass) {
+    if (pass.equals("")
+        || pass.length() < 6) {
+      return false;
+    }
+    return true;
+  }
+
+  public boolean validatePassAlphabet(String pass) {
+    if (Pattern.matches("[a-zA-Z]+$", pass)) {
+      return false;
+    }
+    return true;
+  }
+
+  public boolean validatePassNumeric(String pass) {
+    if (Pattern.matches("[0-9]+$", pass)) {
+      return false;
+    }
+    return true;
   }
 
   @Override public void onBackPressed() {

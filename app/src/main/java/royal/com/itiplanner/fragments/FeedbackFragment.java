@@ -1,8 +1,10 @@
 package royal.com.itiplanner.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,11 @@ import android.widget.RatingBar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import royal.com.itiplanner.R;
 import royal.com.itiplanner.models.FeedbackModel;
 
@@ -42,11 +49,20 @@ public class FeedbackFragment extends Fragment {
     });
 
     btnSubmit.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
+      @RequiresApi(api = Build.VERSION_CODES.O) @Override public void onClick(View v) {
         String feedbackText = edtFeedback.getText().toString();
         int ratings = ratingBar.getNumStars();
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getUid();
+
+        Calendar today = Calendar.getInstance();
+        today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
+        Date todayDate = today.getTime();
+
+        String pattern = "dd/MM/yyyy";
+        DateFormat df = new SimpleDateFormat(pattern);
+
+        String date = df.format(todayDate);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Feedback");
@@ -54,8 +70,10 @@ public class FeedbackFragment extends Fragment {
         FeedbackModel feedbackModel = new FeedbackModel();
         feedbackModel.setRatings(ratings);
         feedbackModel.setFeedbackMessage(feedbackText);
-
-        myRef.child(uid).setValue(feedbackModel);
+        feedbackModel.setUser_id(mAuth.getUid());
+        feedbackModel.setDate(date);
+        String key = myRef.push().getKey();
+        myRef.child(key).setValue(feedbackModel);
 
         edtFeedback.setText("");
         ratingBar.setRating(0);

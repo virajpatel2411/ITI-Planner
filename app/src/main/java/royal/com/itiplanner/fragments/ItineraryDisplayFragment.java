@@ -10,12 +10,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,13 +29,13 @@ public class ItineraryDisplayFragment extends Fragment {
 
   RecyclerView recyclerView;
   ArrayList<DisplayItineraryModel> arrayList;
-  private FirebaseStorage storage;
-  private StorageReference mStorageRef;
   ArrayList<ImageView> bitmaps;
   ViewPager viewPager;
   View rootView;
   String state;
   int j;
+  private FirebaseStorage storage;
+  private StorageReference mStorageRef;
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -51,19 +49,12 @@ public class ItineraryDisplayFragment extends Fragment {
     bitmaps = new ArrayList<>();
     ArrayList<String> city = getArguments().getStringArrayList("CITY");
     state = getArguments().getString("STATE");
-    //bitmaps = getArguments().getParcelableArrayList("IMAGES");
-    Log.e("viraj", finalModels.toString());
-    //Log.v("virajp", String.valueOf(bitmaps.size()));
-    //Log.v("virajp",String.valueOf(bitmaps.get(0)));
     storage = FirebaseStorage.getInstance();
     arrayList = new ArrayList<>();
 
     int i = 0;
 
-
-
-    for(i=0;i<finalModels.size();i++)
-    {
+    for (i = 0; i < finalModels.size(); i++) {
       DisplayItineraryModel displayItineraryModel = new DisplayItineraryModel();
 
       displayItineraryModel.setFinalModel(finalModels.get(i));
@@ -71,10 +62,8 @@ public class ItineraryDisplayFragment extends Fragment {
       arrayList.add(displayItineraryModel);
     }
 
-
-    Log.e("abc", "viraj");
     RecyclerDisplayAdapter recyclerDisplayAdapter =
-        new RecyclerDisplayAdapter(rootView.getContext(), arrayList,"Search");
+        new RecyclerDisplayAdapter(rootView.getContext(), arrayList, "Search");
     recyclerView.setAdapter(recyclerDisplayAdapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
@@ -94,15 +83,9 @@ public class ItineraryDisplayFragment extends Fragment {
 
     @Override protected void onPostExecute(String aVoid) {
 
-
-
     }
 
-    public void displayImage()
-    {
-      Log.e("abc", bitmaps.size() + "");
-
-      Log.e("abc", "jgrjig");
+    public void displayImage() {
 
       BitmapImageAdapter bitmapImageAdapter =
           new BitmapImageAdapter(context, bitmaps);
@@ -111,8 +94,7 @@ public class ItineraryDisplayFragment extends Fragment {
 
     @Override protected String doInBackground(Void... voids) {
 
-     for (j = 1; j <= 5; j++) {
-
+      for (j = 1; j <= 5; j++) {
 
         mStorageRef = storage.getReferenceFromUrl("gs://iti-planner.appspot.com").child(state);
 
@@ -121,24 +103,17 @@ public class ItineraryDisplayFragment extends Fragment {
               @Override public void onSuccess(Uri uri) {
                 ImageView imageView = new ImageView(context);
                 String url = uri.toString();
-                Log.e("abc", url);
-                Log.e("abc","before");
                 Glide.with(context).load(url).into(imageView);
-                Log.e("abc","after");
                 bitmaps.add(imageView);
-                if(bitmaps.size()==5)
-                {
-                  Log.e("abc","method called");
+                if (bitmaps.size() == 5) {
 
                   displayImage();
                 }
               }
-
             });
       }
 
-        return "hello";
-
+      return "hello";
     }
   }
 }

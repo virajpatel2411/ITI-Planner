@@ -21,15 +21,17 @@ import royal.com.itiplanner.models.PlaceModel;
 public class SpecificItineraryHistoryFragment extends Fragment {
 
   ListView listView;
-  TextView txtDays,txtBudget;
-  ArrayList<String> days,places,prices;
+  TextView txtDays, txtBudget;
+  ArrayList<String> days, places, prices;
   NestedScrollView scrollView;
   Button btnBack;
+
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
-    View rootView = inflater.inflate(R.layout.fragment_specific_itinerary_history,container,false);
+    View rootView =
+        inflater.inflate(R.layout.fragment_specific_itinerary_history, container, false);
 
     FinalModel finalModel = (FinalModel) getArguments().getSerializable("FINAL");
     String city = getArguments().getString("CITY");
@@ -49,8 +51,7 @@ public class SpecificItineraryHistoryFragment extends Fragment {
     int amt = 0;
     int no_days = 0;
 
-    for(PlaceModel placeModel : finalModel.getPlaceModels())
-    {
+    for (PlaceModel placeModel : finalModel.getPlaceModels()) {
       String day = placeModel.getNoOfDays();
       String place = placeModel.getPlace();
       String price = placeModel.getPrice();
@@ -64,18 +65,16 @@ public class SpecificItineraryHistoryFragment extends Fragment {
     txtBudget.setText(String.valueOf(amt));
     txtDays.setText(String.valueOf(no_days));
 
-
     DisplayItineraryAdapter
-        displayItineraryAdapter = new DisplayItineraryAdapter(getContext(),days,places,prices);
+        displayItineraryAdapter = new DisplayItineraryAdapter(getContext(), days, places, prices);
 
     listView.setAdapter(displayItineraryAdapter);
-
 
     listView.setOnTouchListener(new View.OnTouchListener() {
       @Override public boolean onTouch(View v, MotionEvent event) {
         scrollView.requestDisallowInterceptTouchEvent(true);
         int action = event.getActionMasked();
-        switch (action){
+        switch (action) {
           case MotionEvent.ACTION_UP:
             scrollView.requestDisallowInterceptTouchEvent(false);
             break;

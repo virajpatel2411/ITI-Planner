@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,15 +21,16 @@ import royal.com.itiplanner.models.UserModel;
 public class PersonalDetailsFragment extends Fragment {
 
   Button btnBack;
-  private DatabaseReference myRef;
-  private FirebaseAuth mAuth;
   TextView txtName, txtEmail, txtNumber;
   String phoneN;
+  private DatabaseReference myRef;
+  private FirebaseAuth mAuth;
+
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
-    View rootView = inflater.inflate(R.layout.fragment_personal_details,container,false);
+    View rootView = inflater.inflate(R.layout.fragment_personal_details, container, false);
     btnBack = rootView.findViewById(R.id.btn_personal_details);
     txtName = rootView.findViewById(R.id.p_name);
     txtEmail = rootView.findViewById(R.id.p_email);
@@ -46,8 +45,9 @@ public class PersonalDetailsFragment extends Fragment {
         txtName.setText(userModel.getName());
         txtEmail.setText(userModel.getEmail());
         phoneN = userModel.getMobNo();
-        if(phoneN==null)
+        if (phoneN == null) {
           phoneN = "Phone Number Not available";
+        }
         txtNumber.setText(phoneN);
       }
 
@@ -55,7 +55,6 @@ public class PersonalDetailsFragment extends Fragment {
 
       }
     });
-
 
     btnBack.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {

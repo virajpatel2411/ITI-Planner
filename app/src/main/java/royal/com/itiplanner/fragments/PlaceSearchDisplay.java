@@ -2,23 +2,17 @@ package royal.com.itiplanner.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
@@ -27,19 +21,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import royal.com.itiplanner.R;
 import royal.com.itiplanner.adapters.DisplayPlaceAdapter;
-import royal.com.itiplanner.adapters.RecyclerHomeAdapter;
 import royal.com.itiplanner.models.PlacesApi;
 import royal.com.itiplanner.models.SearchPlace;
 
@@ -62,9 +50,12 @@ public class PlaceSearchDisplay extends Fragment implements
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    final View rootView = inflater.inflate(R.layout.fragment_place_search_display,container,false);
+    final View rootView =
+        inflater.inflate(R.layout.fragment_place_search_display, container, false);
 
-    Toast.makeText(rootView.getContext(),"Clicking an element again and again alternatively adds or removes places",Toast.LENGTH_LONG).show();
+    Toast.makeText(rootView.getContext(),
+        "Clicking an element again and again alternatively adds or removes places",
+        Toast.LENGTH_LONG).show();
 
     place = getArguments().getString("Place");
 
@@ -81,12 +72,12 @@ public class PlaceSearchDisplay extends Fragment implements
 
     textView = rootView.findViewById(R.id.text_search_result);
     place_list = rootView.findViewById(R.id.list_search_result);
-    place_list.setLayoutManager(new GridLayoutManager(rootView.getContext(),2));
+    place_list.setLayoutManager(new GridLayoutManager(rootView.getContext(), 2));
     createItinerary = rootView.findViewById(R.id.create_iti_btn);
 
     requestQueue = Volley.newRequestQueue(rootView.getContext());
-    Airport(rootView.getContext(),place);
-    SearchPlaceCustomize(rootView.getContext(),place);
+    Airport(rootView.getContext(), place);
+    SearchPlaceCustomize(rootView.getContext(), place);
 
     textView.setText(place);
 
@@ -94,11 +85,14 @@ public class PlaceSearchDisplay extends Fragment implements
       @Override public void onClick(View v) {
         Fragment fragment = new CreateItinerary();
         Bundle bundle = new Bundle();
-        bundle.putString("Name",place);
-        selectedPlaces.add(0,airport);
-        bundle.putSerializable("CreateClass",selectedPlaces);
+        bundle.putString("Name", place);
+        selectedPlaces.add(0, airport);
+        bundle.putSerializable("CreateClass", selectedPlaces);
         fragment.setArguments(bundle);
-        getFragmentManager().beginTransaction().replace(R.id.frame,fragment).addToBackStack("homeFragment").commit();
+        getFragmentManager().beginTransaction()
+            .replace(R.id.frame, fragment)
+            .addToBackStack("homeFragment")
+            .commit();
       }
     });
 
@@ -106,7 +100,8 @@ public class PlaceSearchDisplay extends Fragment implements
   }
 
   private void Airport(Context context, String input) {
-    StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/textsearch/json?");
+    StringBuilder sb =
+        new StringBuilder("https://maps.googleapis.com/maps/api/place/textsearch/json?");
     sb.append("query=airport in " + input);
     sb.append("&language=en&key=AIzaSyCQXqjK34UVxzTQW2zH9oB3WimKrYVHGpo");
 
@@ -121,7 +116,8 @@ public class PlaceSearchDisplay extends Fragment implements
 
               airport.setPlaceName(results.getJSONObject(0).getString("name"));
               airport.setRatings(results.getJSONObject(0).getInt("rating"));
-              airport.setPhotoReference("CmRZAAAAXfDRsvzaMknKnWMv1mMAkWm2HjC8mxRDzEcDajyysTnf08NfD9WOOv6_jPqaQfcZd1QWZyM4MBnklVgZXwXQ_kp3ZHZmDeAaE9bGP8ls1gYnZN5IN9jLHpS3-E6GEItQEhDYKCmiDAZHSFf_jIptpkWIGhQrKR_CnvszAyOR1ZCuuCc5NPMQkw");
+              airport.setPhotoReference(
+                  "CmRZAAAAXfDRsvzaMknKnWMv1mMAkWm2HjC8mxRDzEcDajyysTnf08NfD9WOOv6_jPqaQfcZd1QWZyM4MBnklVgZXwXQ_kp3ZHZmDeAaE9bGP8ls1gYnZN5IN9jLHpS3-E6GEItQEhDYKCmiDAZHSFf_jIptpkWIGhQrKR_CnvszAyOR1ZCuuCc5NPMQkw");
 
               JSONObject geometry = results.getJSONObject(0).getJSONObject("geometry");
               JSONObject location = geometry.getJSONObject("location");
@@ -132,26 +128,24 @@ public class PlaceSearchDisplay extends Fragment implements
               Random r = new Random();
               airport.setNumberOfDays(0);
               airport.setBudget(0);
-
-              Log.e("NAME :",airport.getPlaceName());
-
             } catch (JSONException e) {
-              Log.e("ERROR:","AIRPORT NOT ADDED");
+              Log.e("ERROR:", "AIRPORT NOT ADDED");
               e.printStackTrace();
             }
           }
         }, new Response.ErrorListener() {
       @Override public void onErrorResponse(VolleyError error) {
-        Log.e("ERROR:","AIRPORT NOT ADDED");
+        Log.e("ERROR:", "AIRPORT NOT ADDED");
         error.printStackTrace();
       }
     });
     requestQueue.add(request);
   }
 
-  private void SearchPlaceCustomize(final Context context,String input) {
+  private void SearchPlaceCustomize(final Context context, String input) {
 
-    StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/textsearch/json?");
+    StringBuilder sb =
+        new StringBuilder("https://maps.googleapis.com/maps/api/place/textsearch/json?");
     sb.append("query=tourist attraction in " + input);
     sb.append("&language=en&key=AIzaSyCQXqjK34UVxzTQW2zH9oB3WimKrYVHGpo");
 
@@ -164,7 +158,7 @@ public class PlaceSearchDisplay extends Fragment implements
             try {
               results = response.getJSONArray("results");
 
-              for (int i=0;i<results.length();i++){
+              for (int i = 0; i < results.length(); i++) {
 
                 SearchPlace s = new SearchPlace();
 
@@ -181,16 +175,15 @@ public class PlaceSearchDisplay extends Fragment implements
                 s.setLongitude(location.getDouble("lng"));
 
                 Random r = new Random();
-                s.setNumberOfDays(r.nextInt(2)+1);
-                s.setBudget(r.nextInt(1501)+500);
+                s.setNumberOfDays(r.nextInt(2) + 1);
+                s.setBudget(r.nextInt(1501) + 500);
 
                 places.add(s);
               }
 
-              DisplayPlaceAdapter displayPlaceAdapter = new DisplayPlaceAdapter(places,context);
+              DisplayPlaceAdapter displayPlaceAdapter = new DisplayPlaceAdapter(places, context);
               place_list.setAdapter(displayPlaceAdapter);
               displayPlaceAdapter.setOnItemClickListener(PlaceSearchDisplay.this);
-
             } catch (JSONException e) {
               e.printStackTrace();
             }
@@ -208,17 +201,14 @@ public class PlaceSearchDisplay extends Fragment implements
   @Override public void onItemClick(int position) {
     SearchPlace searchPlace = places.get(position);
     String s = searchPlace.getPlaceName();
-    if(!placesNames.contains(s))
-    {
+    if (!placesNames.contains(s)) {
       selectedPlaces.add(searchPlace);
       placesNames.add(s);
-      Toast.makeText(getContext(),"Added " + s,Toast.LENGTH_SHORT).show();
-    }
-    else
-    {
+      Toast.makeText(getContext(), "Added " + s, Toast.LENGTH_SHORT).show();
+    } else {
       selectedPlaces.remove(searchPlace);
       placesNames.remove(s);
-      Toast.makeText(getContext(),"Removed " + s,Toast.LENGTH_SHORT).show();
+      Toast.makeText(getContext(), "Removed " + s, Toast.LENGTH_SHORT).show();
     }
   }
 }

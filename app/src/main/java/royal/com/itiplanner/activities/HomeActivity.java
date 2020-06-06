@@ -66,7 +66,6 @@ public class HomeActivity extends AppCompatActivity {
 
   @Override
   public void onBackPressed() {
-    //super.onBackPressed();
     if (fragmentManager.getBackStackEntryCount() > 0) {
       fragmentManager.popBackStack();
     } else {

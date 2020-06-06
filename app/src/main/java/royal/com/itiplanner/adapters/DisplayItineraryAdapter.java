@@ -11,15 +11,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import royal.com.itiplanner.R;
 
-public class DisplayItineraryAdapter extends ArrayAdapter{
+public class DisplayItineraryAdapter extends ArrayAdapter {
 
   Context context;
-  ArrayList<String> days,price,place;
+  ArrayList<String> days, price, place;
   TextView txtDays, txtPrice, txtPlace;
 
   public DisplayItineraryAdapter(@NonNull Context context,
       ArrayList days, ArrayList price, ArrayList place) {
-    super(context, R.layout.list_specific_itinerary,days);
+    super(context, R.layout.list_specific_itinerary, days);
     this.context = context;
     this.days = days;
     this.price = price;
@@ -32,7 +32,7 @@ public class DisplayItineraryAdapter extends ArrayAdapter{
     LayoutInflater layoutInflater =
         (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-    View rootView = layoutInflater.inflate(R.layout.list_specific_itinerary,parent,false);
+    View rootView = layoutInflater.inflate(R.layout.list_specific_itinerary, parent, false);
 
     txtDays = rootView.findViewById(R.id.txt_Days);
     txtPlace = rootView.findViewById(R.id.txtPlace);

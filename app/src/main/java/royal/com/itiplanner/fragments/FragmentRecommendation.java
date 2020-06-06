@@ -38,38 +38,39 @@ public class FragmentRecommendation extends Fragment {
   ArrayList<ImageView> bitmaps;
   ArrayList<HomePageItineraryModel> arrayList;
   ArrayList<DisplayItineraryModel> displayItineraryModels;
+
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    View rootView = inflater.inflate(R.layout.fragment_display,container,false);
+    View rootView = inflater.inflate(R.layout.fragment_display, container, false);
     viewPager = rootView.findViewById(R.id.img_slider);
     recyclerView = rootView.findViewById(R.id.rec_display);
     storage = FirebaseStorage.getInstance();
-
 
     bitmaps = new ArrayList<>();
     state = getArguments().getString("state");
     places = getArguments().getStringArrayList("places");
     arrayList = (ArrayList<HomePageItineraryModel>) getArguments().getSerializable("model");
 
-
     displayItineraryModels = new ArrayList<>();
 
-    for(HomePageItineraryModel homePageItineraryModel:arrayList){
-      if(!homePageItineraryModel.getState().equals(state)){
+    for (HomePageItineraryModel homePageItineraryModel : arrayList) {
+      if (!homePageItineraryModel.getState().equals(state)) {
         continue;
       }
       FinalModel finalModel = new FinalModel();
       ArrayList<PlaceModel> placeModels = new ArrayList<>();
       DisplayItineraryModel displayItineraryModel = new DisplayItineraryModel();
       displayItineraryModel.setCity(homePageItineraryModel.getPlace());
-      Log.e("lkh",Integer.valueOf(homePageItineraryModel.getNo_of_days())+ "" +places.size());
-      int per_days = (int) ((double)Integer.valueOf(homePageItineraryModel.getNo_of_days())/places.size());
-      int per_price = (int) (Double.valueOf(homePageItineraryModel.getAmt())/places.size());
-      if(per_days==0)
-         per_days++;
-      int tot_days=0,tot_price=0;
-      for(String placeName:places){
+      Log.e("lkh", Integer.valueOf(homePageItineraryModel.getNo_of_days()) + "" + places.size());
+      int per_days =
+          (int) ((double) Integer.valueOf(homePageItineraryModel.getNo_of_days()) / places.size());
+      int per_price = (int) (Double.valueOf(homePageItineraryModel.getAmt()) / places.size());
+      if (per_days == 0) {
+        per_days++;
+      }
+      int tot_days = 0, tot_price = 0;
+      for (String placeName : places) {
         PlaceModel placeModel = new PlaceModel();
         placeModel.setPlace(placeName);
         placeModel.setPrice(String.valueOf(per_price));
@@ -78,7 +79,6 @@ public class FragmentRecommendation extends Fragment {
         tot_days += per_days;
         placeModels.add(placeModel);
       }
-      //int total_days = (int) tot_days;
       finalModel.setPlaceModels(placeModels);
       finalModel.setDaysCount(String.valueOf(tot_days));
       ArrayList<String> temp = new ArrayList<>();
@@ -89,14 +89,11 @@ public class FragmentRecommendation extends Fragment {
     }
 
     RecyclerDisplayAdapter recyclerDisplayAdapter =
-        new RecyclerDisplayAdapter(rootView.getContext(), displayItineraryModels,"Search");
+        new RecyclerDisplayAdapter(rootView.getContext(), displayItineraryModels, "Search");
     recyclerView.setAdapter(recyclerDisplayAdapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
-
-    Log.e("abc","before");
-    new PostTask(getActivity().getApplicationContext(),bitmaps).execute();
-    Log.e("abc","after");
+    new PostTask(getActivity().getApplicationContext(), bitmaps).execute();
 
     return rootView;
   }
@@ -111,12 +108,7 @@ public class FragmentRecommendation extends Fragment {
       this.bitmaps = bitmaps;
     }
 
-
-    public void displayImage()
-    {
-      Log.e("abc", bitmaps.size() + "");
-
-      Log.e("abc", "jgrjig");
+    public void displayImage() {
 
       BitmapImageAdapter bitmapImageAdapter =
           new BitmapImageAdapter(context, bitmaps);
@@ -124,10 +116,8 @@ public class FragmentRecommendation extends Fragment {
     }
 
     @Override protected Void doInBackground(Void... voids) {
-      Log.e("abc","async");
 
       for (j = 1; j <= 5; j++) {
-
 
         mStorageRef = storage.getReferenceFromUrl("gs://iti-planner.appspot.com").child(state);
 
@@ -136,22 +126,16 @@ public class FragmentRecommendation extends Fragment {
               @Override public void onSuccess(Uri uri) {
                 ImageView imageView = new ImageView(context);
                 String url = uri.toString();
-                Log.e("abc", url);
-                Log.e("abc","before");
                 Glide.with(context).load(url).into(imageView);
-                Log.e("abc","after");
                 bitmaps.add(imageView);
-                if(bitmaps.size()==5) {
-                  Log.e("abc", "method called");
+                if (bitmaps.size() == 5) {
                   displayImage();
                 }
               }
-
             });
       }
 
       return null;
-
     }
   }
 }

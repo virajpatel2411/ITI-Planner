@@ -3,23 +3,18 @@ package royal.com.itiplanner.fragments;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -43,15 +38,15 @@ public class DisplayPlaceList extends Fragment {
   FinalModel finalModel;
   ArrayList<PlaceModel> placeModels;
   double ratings;
-  int total_days,total_budget;
+  int total_days, total_budget;
   String key;
-  private FirebaseAuth mAuth;
   int count = 1;
-  int k=0;
-  String[] tags = {"HillStation", "Adventure", "Heritage", "Desert", "Beach"};
+  int k = 0;
+  String[] tags = { "HillStation", "Adventure", "Heritage", "Desert", "Beach" };
   ArrayList<String> tagList;
-  String key_state="", key_city="";
+  String key_state = "", key_city = "";
   int id = 100;
+  private FirebaseAuth mAuth;
 
   @RequiresApi(api = Build.VERSION_CODES.KITKAT) @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +55,6 @@ public class DisplayPlaceList extends Fragment {
 
     final String name = getArguments().getString("Name");
     selectedPlaces = (ArrayList<SearchPlace>) getArguments().getSerializable("SelectedPlaces");
-    //airport = (SearchPlace) getArguments().getSerializable("Airport");
     key = getArguments().getString("Name");
     placeModels = new ArrayList<>();
     Random random = new Random();
@@ -69,8 +63,7 @@ public class DisplayPlaceList extends Fragment {
     mAuth = FirebaseAuth.getInstance();
     myRef = database.getReference("Itinerary");
     finalModel = new FinalModel();
-    for(int i=1;i<selectedPlaces.size();i++)
-    {
+    for (int i = 1; i < selectedPlaces.size(); i++) {
       placeModel = new PlaceModel();
       placeModel.setNoOfDays(String.valueOf(selectedPlaces.get(i).getNumberOfDays()));
       placeModel.setPlace(selectedPlaces.get(i).getPlaceName());
@@ -82,12 +75,10 @@ public class DisplayPlaceList extends Fragment {
     }
 
     int no2 = random.nextInt(5);
-    for(int i=no;i<=no2;i++)
-    {
+    for (int i = no; i <= no2; i++) {
       tagList.add(tags[i]);
     }
-    if(tagList.isEmpty())
-    {
+    if (tagList.isEmpty()) {
       tagList.add(tags[random.nextInt(5)]);
     }
 
@@ -110,22 +101,17 @@ public class DisplayPlaceList extends Fragment {
         + selectedPlaces.get(0).getPlaceName()
         + " is displayed below");
 
-
-    key_city="";
-    for(k=0;k<key.length();k++)
-    {
-      if(key.charAt(k)==',')
-      {
+    key_city = "";
+    for (k = 0; k < key.length(); k++) {
+      if (key.charAt(k) == ',') {
         break;
       }
       key_city += key.charAt(k);
     }
-    key_state="";
-    k+=2;
-    for(;k<key.length();k++)
-    {
-      if(key.charAt(k)==',')
-      {
+    key_state = "";
+    k += 2;
+    for (; k < key.length(); k++) {
+      if (key.charAt(k) == ',') {
         break;
       }
       key_state += key.charAt(k);
@@ -134,8 +120,7 @@ public class DisplayPlaceList extends Fragment {
     share.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
-
-        myRef.child(key_state).child(key_city+" "+mAuth.getUid()).setValue(finalModel);
+        myRef.child(key_state).child(key_city + " " + mAuth.getUid()).setValue(finalModel);
 
         String shareBody = "";
         shareBody = "Itinerary for " + name + " is :\n";
@@ -151,8 +136,6 @@ public class DisplayPlaceList extends Fragment {
       }
     });
 
-
-    //selectedPlaces.add(0,airport);
     outputPlacesList = generate(selectedPlaces);
 
     shortest_path_list.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
@@ -202,7 +185,6 @@ public class DisplayPlaceList extends Fragment {
       index = m3;
       visited.add(index);
     }
-    Log.e("MSG: ", "-------output-----");
     return target;
   }
 

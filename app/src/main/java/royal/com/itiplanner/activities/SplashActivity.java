@@ -9,38 +9,33 @@ import royal.com.itiplanner.R;
 
 public class SplashActivity extends AppCompatActivity {
 
-    int seconds = 3000;
-    private String uId;
+  int seconds = 3000;
+  private String uId;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        SharedPreferences sharedPreferences = getSharedPreferences("ITIPlanner", MODE_PRIVATE);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    SharedPreferences sharedPreferences = getSharedPreferences("ITIPlanner", MODE_PRIVATE);
 
-        uId = sharedPreferences.getString("UID_KEY", "");
+    uId = sharedPreferences.getString("UID_KEY", "");
 
-        setContentView(R.layout.activity_splash);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+    setContentView(R.layout.activity_splash);
+    new Handler().postDelayed(new Runnable() {
+      @Override
+      public void run() {
 
+        if (uId.equals("")) {
 
-                if (uId.equals("")){
+          Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+          startActivity(intent);
+          finish();
+        } else {
 
-
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-
-                }else {
-
-                    Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-
-
-            }
-        }, seconds);
-    }
+          Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+          startActivity(intent);
+          finish();
+        }
+      }
+    }, seconds);
+  }
 }
