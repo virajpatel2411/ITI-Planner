@@ -4,10 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.util.PatternsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -95,20 +94,16 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         while (true) {
-          if (TextUtils.isEmpty(edtEmail.getText().toString()) || !Patterns.EMAIL_ADDRESS.matcher(
-              edtEmail.getText().toString()).matches()) {
+          if (!validateEmail(edtEmail.getText().toString())) {
             edtEmail.setError("Please enter a valid Email ID!");
             break;
           }
-          if (TextUtils.isEmpty(edtPass.getText().toString())) {
-            edtPass.setError("Please enter Passsword!");
+          if (!validatePassword(edtPass.getText().toString())) {
+            edtPass.setError("Please enter Password!");
             break;
           }
-          if (!(TextUtils.isEmpty(edtEmail.getText().toString()) &&
-              Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText().toString()).matches()) &&
-              !Pattern.matches("[0-9]+$", edtPass.getText().toString()) &&
-              !Pattern.matches("[a-zA-Z]+$", edtPass.getText().toString())
-          ) {
+          if (validateEmailAndPassword(edtEmail.getText().toString(),
+              edtPass.getText().toString())) {
             mAuth.signInWithEmailAndPassword(edtEmail.getText().toString(),
                 edtPass.getText().toString())
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
@@ -133,8 +128,9 @@ public class MainActivity extends AppCompatActivity {
                           editor.putString("UID_KEY", strId);
 
                           editor.commit();
-
-                          startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                          Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                          intent.putExtra("intent","intent works");
+                          startActivity(intent);
                           finish();
                         }
 
@@ -161,6 +157,32 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
+  public boolean validateEmail(String email) {
+    if (email.equals("") || !PatternsCompat.EMAIL_ADDRESS.matcher(
+        email).matches()) {
+      return false;
+    }
+    return true;
+  }
+
+  public boolean validatePassword(String password) {
+    if (password.equals("")) {
+      return false;
+    }
+    return true;
+  }
+
+  public boolean validateEmailAndPassword(String email, String password) {
+    if (email.equals("")
+        || !PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()
+        || Pattern.matches("[0-9]+$", password)
+        || Pattern.matches("[a-zA-Z]+$", password)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
@@ -171,14 +193,14 @@ public class MainActivity extends AppCompatActivity {
       try {
 
         GoogleSignInAccount googleSignInAccount = task.getResult(ApiException.class);
-        firebasebaseLogin(googleSignInAccount);
+        firebaseLogin(googleSignInAccount);
       } catch (ApiException e) {
 
       }
     }
   }
 
-  private void firebasebaseLogin(GoogleSignInAccount googleSignInAccount) {
+  private void firebaseLogin(GoogleSignInAccount googleSignInAccount) {
 
     AuthCredential credential =
         GoogleAuthProvider.getCredential(googleSignInAccount.getIdToken(), null);

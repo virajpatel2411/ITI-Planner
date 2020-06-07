@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="royal.com.itiplanner">
-<uses-permission android:name="android.permission.INTERNET"/>
+
+  <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+
   <application
       android:allowBackup="true"
       android:appComponentFactory="whateverString"
@@ -15,10 +17,11 @@
       android:theme="@style/AppTheme"
       tools:replace="android:appComponentFactory">
 
-    <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyCQXqjK34UVxzTQW2zH9oB3WimKrYVHGpo"/>
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyCQXqjK34UVxzTQW2zH9oB3WimKrYVHGpo" />
 
-    <activity android:name=".fragments.PlaceSearchDisplay"/>
+    <activity android:name=".fragments.PlaceSearchDisplay" />
     <activity android:name=".activities.SignUpActivity" />
     <activity android:name=".activities.HomeActivity" />
     <activity android:name=".activities.MainActivity" />

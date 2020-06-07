@@ -1,82 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
-
-
-
-<RelativeLayout android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     >
+
+
+  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
 
     <TextView
+        android:id="@+id/txt_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:textSize="24dp"
         android:layout_margin="8dp"
         android:text="Hello"
-        android:id="@+id/txt_1">
+        android:textColor="#000"
+        android:textSize="24dp"
+        >
 
     </TextView>
 
 
     <ListView
+        android:id="@+id/spec_rec"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:id="@+id/spec_rec"
         android:layout_below="@+id/txt_1"
         android:divider="#000"
-        android:dividerHeight="3dp">
+        android:dividerHeight="3dp"
+        >
 
     </ListView>
 
     <LinearLayout
+        android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/spec_rec"
-        android:id="@+id/linear1"
+        android:layout_marginTop="32dp"
         android:orientation="vertical"
-        android:layout_marginTop="32dp">
+        >
 
       <LinearLayout
+          android:id="@+id/linear1_1"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_margin="8dp"
           android:orientation="horizontal"
-          android:id="@+id/linear1_1"
-          android:layout_margin="8dp">
+          >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
             android:text="Total Budget : "
-            android:textColor="#000">
+            android:textColor="#000"
+            android:textSize="24sp"
+            >
 
         </TextView>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:orientation="horizontal"
-            android:layout_marginLeft="8dp">
+            >
 
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="Rs."
+              android:textColor="#000"
               android:textSize="24sp"
-              android:textColor="#000"></TextView>
+              ></TextView>
           <TextView
+              android:id="@+id/spec_budget"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="4000"
+              android:textColor="#000"
               android:textSize="24dp"
-              android:id="@+id/spec_budget"
-              android:textColor="#000">
+              >
 
           </TextView>
         </LinearLayout>
@@ -84,32 +91,36 @@
       </LinearLayout>
 
       <LinearLayout
+          android:id="@+id/linear1_2"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:orientation="horizontal"
           android:layout_margin="8dp"
-          android:id="@+id/linear1_2">
+          android:orientation="horizontal"
+          >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
             android:text="Total Days : "
-            android:textColor="#000">
+            android:textColor="#000"
+            android:textSize="24sp"
+            >
 
         </TextView>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:orientation="horizontal"
-            android:layout_marginLeft="8dp">
+            >
           <TextView
+              android:id="@+id/spec_days"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="4"
+              android:textColor="#000"
               android:textSize="24dp"
-              android:id="@+id/spec_days"
-              android:textColor="#000">
+              >
 
           </TextView>
         </LinearLayout>
@@ -118,32 +129,35 @@
       </LinearLayout>
 
       <LinearLayout
+          android:id="@+id/linear2"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:id="@+id/linear2"
-          android:layout_marginBottom="16dp"
           android:layout_marginTop="16dp"
-          android:orientation="horizontal">
+          android:layout_marginBottom="16dp"
+          android:orientation="horizontal"
+          >
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/bg_border"
-            android:backgroundTint="#E0DBDB"
-            android:layout_weight="1"
             android:id="@+id/iti_back"
-            android:textAllCaps="false"
-            android:text="Back"></Button>
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:layout_weight="1"
             android:background="@drawable/bg_border"
             android:backgroundTint="#E0DBDB"
-            android:layout_margin="8dp"
-            android:id="@+id/iti_next"
+            android:text="Back"
             android:textAllCaps="false"
-            android:text="Next"></Button>
+            ></Button>
+        <Button
+            android:id="@+id/iti_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_border"
+            android:backgroundTint="#E0DBDB"
+            android:text="Next"
+            android:textAllCaps="false"
+            ></Button>
       </LinearLayout>
 
     </LinearLayout>

@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    >
 
 
-    <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:id="@+id/search_view"
-        android:iconifiedByDefault="true"
-        android:background="@drawable/bg_border"
-        android:backgroundTint="#F7EFEF"
-        >
+  <SearchView
+      android:id="@+id/search_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="8dp"
+      android:background="@drawable/bg_border"
+      android:backgroundTint="#F7EFEF"
+      android:iconifiedByDefault="true"
+      >
 
-    </SearchView>
+  </SearchView>
 
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/search_view"
-        android:id="@+id/progress">
+  <ProgressBar
+      android:id="@+id/progress"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/search_view"
+      android:layout_centerInParent="true"
+      >
 
-    </ProgressBar>
+  </ProgressBar>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/list_search"
-        android:layout_below="@+id/search_view"
-        android:layout_margin="8dp">
+  <ListView
+      android:id="@+id/list_search"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/search_view"
+      android:layout_margin="8dp"
+      >
 
-    </ListView>
+  </ListView>
 
 </RelativeLayout>

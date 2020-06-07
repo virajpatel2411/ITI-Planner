@@ -3,25 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.DisplayPlaceList">
+    tools:context=".fragments.DisplayPlaceList"
+    >
 
   <TextView
       android:id="@+id/iti_name"
-      android:layout_margin="10dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_margin="10dp"
       android:textColor="@android:color/black"
+      android:textSize="40dp"
       android:textStyle="bold"
-      android:textSize="40dp"/>
+      />
 
   <TextView
       android:id="@+id/text"
-      android:layout_below="@id/iti_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text=""
+      android:layout_below="@id/iti_name"
       android:layout_margin="10dp"
-      android:textSize="20dp"/>
+      android:text=""
+      android:textSize="20dp"
+      />
 
   <android.support.v7.widget.RecyclerView
       android:id="@+id/shortest_path_list"
@@ -37,26 +40,28 @@
       android:layout_width="150dp"
       android:layout_height="wrap_content"
       android:layout_alignParentLeft="true"
-      android:text="Download"
       android:layout_alignParentBottom="true"
       android:layout_marginLeft="20dp"
-      android:background="@android:color/holo_red_light"
-      android:textColor="@android:color/white"
       android:layout_marginTop="20dp"
-      android:layout_marginBottom="20dp"/>
+      android:layout_marginBottom="20dp"
+      android:background="@android:color/holo_red_light"
+      android:text="Download"
+      android:textColor="@android:color/white"
+      />
 
   <Button
       android:id="@+id/share_btn"
-      android:layout_alignParentRight="true"
       android:layout_width="150dp"
       android:layout_height="wrap_content"
-      android:text="Share"
+      android:layout_alignParentRight="true"
       android:layout_alignParentBottom="true"
-      android:background="@android:color/holo_red_light"
-      android:textColor="@android:color/white"
-      android:layout_marginBottom="20dp"
+      android:layout_marginTop="20dp"
       android:layout_marginRight="20dp"
-      android:layout_marginTop="20dp"/>
+      android:layout_marginBottom="20dp"
+      android:background="@android:color/holo_red_light"
+      android:text="Share"
+      android:textColor="@android:color/white"
+      />
 
 
 </RelativeLayout>

@@ -3,33 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PlaceSearchDisplay">
+    tools:context=".fragments.PlaceSearchDisplay"
+    >
 
   <TextView
       android:id="@+id/text_search_result"
-      android:layout_margin="10dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_margin="10dp"
       android:textColor="@android:color/black"
+      android:textSize="40dp"
       android:textStyle="bold"
-      android:textSize="40dp"/>
+      />
 
   <android.support.v7.widget.RecyclerView
       android:id="@+id/list_search_result"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/text_search_result"
+      android:layout_marginTop="5dp"
       android:layout_marginBottom="80dp"
-      android:layout_marginTop="5dp"/>
+      />
 
   <Button
       android:id="@+id/create_iti_btn"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="Create Itinerary"
       android:layout_alignParentBottom="true"
+      android:layout_margin="20dp"
       android:background="@android:color/holo_red_light"
+      android:text="Create Itinerary"
       android:textColor="@android:color/white"
-      android:layout_margin="20dp"/>
+      />
 
 </RelativeLayout>
