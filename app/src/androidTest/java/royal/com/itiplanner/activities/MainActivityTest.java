@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.gms.common.SignInButton;
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,6 +51,7 @@ public class MainActivityTest {
   public void isImagePresent() {
     MainActivity mainActivity = activityTestRule.getActivity();
     View view = mainActivity.findViewById(R.id.img_logo);
+    Assert.assertThat(view, Matchers.notNullValue());
     assertThat(view, Matchers.<View>instanceOf(ImageView.class));
   }
 

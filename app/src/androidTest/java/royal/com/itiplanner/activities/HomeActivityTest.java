@@ -1,6 +1,5 @@
 package royal.com.itiplanner.activities;
 
-import android.support.design.bottomappbar.BottomAppBar;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
@@ -20,17 +19,14 @@ public class HomeActivityTest {
       new ActivityTestRule<>(HomeActivity.class);
 
   @Test
-  public void isFrameLayoutForFragmentsPresent()
-  {
+  public void isFrameLayoutForFragmentsPresent() {
     View view = activityTestRule.getActivity().findViewById(R.id.frame);
     Assert.assertThat(view, Matchers.instanceOf(FrameLayout.class));
   }
 
   @Test
-  public void isBottomNavigationBarPresent()
-  {
+  public void isBottomNavigationBarPresent() {
     View view = activityTestRule.getActivity().findViewById(R.id.btmbar);
     Assert.assertThat(view, Matchers.instanceOf(CoordinatorLayout.class));
   }
-
 }

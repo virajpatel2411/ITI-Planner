@@ -76,6 +76,8 @@ public class HomeFragment extends Fragment {
 
     listView = rootView.findViewById(R.id.list_home);
 
+
+
     new FetchData(rootView.getContext(), listView, arrayList).execute();
 
     return rootView;

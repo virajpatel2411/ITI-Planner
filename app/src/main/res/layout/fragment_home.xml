@@ -1,92 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#fff">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    >
 
+  <LinearLayout
+      android:id="@+id/linear1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="2"
+      >
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:id="@+id/linear1">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="16dp"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Welcome,"
-                android:id="@+id/welcome"
-                android:textStyle="bold"
-                android:textSize="30sp"
-                android:textColor="#000"></TextView>
+        android:layout_margin="16dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        >
+      <TextView
+          android:id="@+id/welcome"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Welcome,"
+          android:textColor="#000"
+          android:textSize="30sp"
+          android:textStyle="bold"
+          ></TextView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_name"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:textColor="#000"
-                ></TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/logo"></ImageView>
-        </LinearLayout>
-
+      <TextView
+          android:id="@+id/txt_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="#000"
+          android:textSize="24sp"
+          android:textStyle="bold"
+          ></TextView>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linear1"
+        android:layout_weight="1"
+        android:gravity="center"
         >
 
+      <ImageView
+          android:id="@+id/img_logo"
+          android:layout_width="150dp"
+          android:layout_height="150dp"
+          android:src="@drawable/logo"
+          ></ImageView>
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/linear1"
+      >
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:text="Your Recommended Itineraries"
-            android:id="@+id/text_1"
-            android:layout_margin="8dp"
-            android:layout_marginBottom="8dp">
+    <TextView
+        android:id="@+id/text_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Your Recommended Itineraries"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        >
 
-        </TextView>
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/text_1"
-            android:id="@+id/progress">
+    </TextView>
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_1"
+        android:layout_centerInParent="true"
+        >
 
-        </ProgressBar>
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_below="@+id/text_1"
-            android:id="@+id/list_home">
+    </ProgressBar>
+    <ListView
+        android:id="@+id/list_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_1"
+        android:layout_margin="8dp"
+        >
 
-        </ListView>
+    </ListView>
 
 
-    </RelativeLayout>
+  </RelativeLayout>
 
 
 </RelativeLayout>

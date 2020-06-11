@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import org.hamcrest.Matchers;
-import org.junit.Before;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,17 +24,22 @@ import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.startsWith;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 @RunWith(JUnit4.class)
 public class SignUpActivityTest {
 
-  @Rule public ActivityTestRule<SignUpActivity> activityTestRule = new ActivityTestRule<>(SignUpActivity.class);;
+  @Rule public ActivityTestRule<SignUpActivity> activityTestRule =
+      new ActivityTestRule<>(SignUpActivity.class);
+  ;
 
   @Test
-  public void isTitlePresent()
-  {
+  public void isTitlePresent() {
     SignUpActivity signUpActivity = activityTestRule.getActivity();
     View view = signUpActivity.findViewById(R.id.txt_su);
     assertThat(view, notNullValue());
@@ -42,64 +47,57 @@ public class SignUpActivityTest {
   }
 
   @Test
-  public void isImagePresent()
-  {
+  public void isImagePresent() {
     SignUpActivity signUpActivity = activityTestRule.getActivity();
     View view = signUpActivity.findViewById(R.id.img_logo);
+    Assert.assertThat(view, Matchers.notNullValue());
     assertThat(view, Matchers.<View>instanceOf(ImageView.class));
   }
 
   @Test
-  public void isNameFormFieldPresent()
-  {
+  public void isNameFormFieldPresent() {
     SignUpActivity signUpActivity = activityTestRule.getActivity();
     View view = signUpActivity.findViewById(R.id.edt_name);
     assertThat(view, Matchers.<View>instanceOf(EditText.class));
   }
 
   @Test
-  public void isEmailFormFieldPresent()
-  {
+  public void isEmailFormFieldPresent() {
     SignUpActivity signUpActivity = activityTestRule.getActivity();
     View view = signUpActivity.findViewById(R.id.edt_email);
     assertThat(view, Matchers.<View>instanceOf(EditText.class));
   }
 
   @Test
-  public void isMobileNumberFormFieldPresent()
-  {
+  public void isMobileNumberFormFieldPresent() {
     SignUpActivity signUpActivity = activityTestRule.getActivity();
     View view = signUpActivity.findViewById(R.id.edt_number);
     assertThat(view, Matchers.<View>instanceOf(EditText.class));
   }
 
   @Test
-  public void isPasswordFormFieldPresent()
-  {
+  public void isPasswordFormFieldPresent() {
     SignUpActivity signUpActivity = activityTestRule.getActivity();
     View view = signUpActivity.findViewById(R.id.edt_password);
     assertThat(view, Matchers.<View>instanceOf(EditText.class));
   }
 
   @Test
-  public void isBackButtonPresent()
-  {
+  public void isBackButtonPresent() {
     SignUpActivity signUpActivity = activityTestRule.getActivity();
     View view = signUpActivity.findViewById(R.id.signup_back);
     assertThat(view, Matchers.<View>instanceOf(Button.class));
   }
 
   @Test
-  public void isNextButtonPresent()
-  {
+  public void isNextButtonPresent() {
     SignUpActivity signUpActivity = activityTestRule.getActivity();
     View view = signUpActivity.findViewById(R.id.btn_next);
     assertThat(view, Matchers.<View>instanceOf(Button.class));
   }
 
   @Test
-  public void isLoginPageDisplayedOnClickingNextButton()
-  {
+  public void isLoginPageDisplayedOnClickingNextButton() {
     onView(withId(R.id.edt_number)).perform(replaceText("9979797787"));
     onView(withId(R.id.edt_name)).perform(replaceText("Test"));
     onView(withId(R.id.edt_email)).perform(replaceText("test123@test.com"));
@@ -112,8 +110,7 @@ public class SignUpActivityTest {
   }
 
   @Test
-  public void isToastDisplayedOnSignUpFailing()
-  {
+  public void isToastDisplayedOnSignUpFailing() {
     onView(withId(R.id.edt_number)).perform(replaceText("9979797787"));
     onView(withId(R.id.edt_name)).perform(replaceText("Test"));
     onView(withId(R.id.edt_email)).perform(replaceText("testing@test.com"));
@@ -127,10 +124,8 @@ public class SignUpActivityTest {
   }
 
   @Test
-  public void isLoginPageDisplayedOnClickingBackButton()
-  {
+  public void isLoginPageDisplayedOnClickingBackButton() {
     onView(withId(R.id.signup_back)).perform(click());
     onView(withId(R.id.txt_login)).check(matches(withText("Login")));
   }
-
 }

@@ -26,6 +26,7 @@ public class SplashActivityTest {
   @Test
   public void isImagePresent() {
     View view = activityTestRule.getActivity().findViewById(R.id.img_logo);
+    Assert.assertThat(view, Matchers.notNullValue());
     Assert.assertThat(view, Matchers.instanceOf(ImageView.class));
   }
 

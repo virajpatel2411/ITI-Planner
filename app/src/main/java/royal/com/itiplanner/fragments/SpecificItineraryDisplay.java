@@ -1,5 +1,6 @@
 package royal.com.itiplanner.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import royal.com.itiplanner.R;
 import royal.com.itiplanner.adapters.DisplayItineraryAdapter;
 import royal.com.itiplanner.models.FinalModel;
 import royal.com.itiplanner.models.PlaceModel;
+import royal.com.itiplanner.models.SearchPlace;
 
 public class SpecificItineraryDisplay extends Fragment {
 
@@ -35,8 +37,8 @@ public class SpecificItineraryDisplay extends Fragment {
     btnBack = rootView.findViewById(R.id.iti_back);
     btnNext = rootView.findViewById(R.id.iti_next);
 
-    FinalModel finalModel = (FinalModel) getArguments().getSerializable("FINAL");
-    String city = getArguments().getString("CITY");
+    final FinalModel finalModel = (FinalModel) getArguments().getSerializable("FINAL");
+    final String city = getArguments().getString("CITY");
 
     listView = rootView.findViewById(R.id.spec_rec);
     scrollView = rootView.findViewById(R.id.scroll);
@@ -88,6 +90,22 @@ public class SpecificItineraryDisplay extends Fragment {
     btnBack.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         getActivity().onBackPressed();
+      }
+    });
+
+    btnNext.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        String shareBody = "";
+        shareBody = "Itinerary for " + city + " is :\n";
+        int count = 1;
+        for (PlaceModel p : finalModel.getPlaceModels()) {
+          shareBody = shareBody + count + ") " + p.getPlace() + " - " + p.getNoOfDays() + " day(s)" + "\n";
+          count++;
+        }
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(i, "Share Itinerary using"));
       }
     });
 
