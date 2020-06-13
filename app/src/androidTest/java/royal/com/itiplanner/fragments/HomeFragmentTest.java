@@ -74,6 +74,18 @@ public class HomeFragmentTest {
   }
 
   @Test
+  public void isListViewAdapterNotEmpty() {
+    View view = fragmentTestRule.getActivity().findViewById(R.id.list_home);
+    Assert.assertThat(view, Matchers.notNullValue());
+    Assert.assertThat(view, Matchers.instanceOf(ListView.class));
+    ListView listView = (ListView) view;
+    Espresso.onView(isRoot()).perform(waitId(R.id.list_home, TimeUnit.SECONDS.toMillis(8)));
+    ListAdapter arrayAdapter = listView.getAdapter();
+    Assert.assertThat(arrayAdapter, Matchers.instanceOf(ArrayAdapter.class));
+    Assert.assertThat(arrayAdapter.getCount(), Matchers.greaterThan(0));
+  }
+
+  @Test
   public void isTitleHavingUserNamePresent() {
     View view = fragmentTestRule.getActivity().findViewById(R.id.txt_name);
     Assert.assertThat(view, Matchers.notNullValue());
@@ -94,16 +106,6 @@ public class HomeFragmentTest {
     Assert.assertThat(view, Matchers.instanceOf(ListView.class));
   }
 
-  @Test
-  public void isListViewAdapterNotEmpty() {
-    View view = fragmentTestRule.getActivity().findViewById(R.id.list_home);
-    Assert.assertThat(view, Matchers.notNullValue());
-    Assert.assertThat(view, Matchers.instanceOf(ListView.class));
-    ListView listView = (ListView) view;
-    Espresso.onView(isRoot()).perform(waitId(R.id.list_home, TimeUnit.SECONDS.toMillis(20)));
-    ListAdapter arrayAdapter = listView.getAdapter();
-    Assert.assertThat(arrayAdapter, Matchers.instanceOf(ArrayAdapter.class));
-    Assert.assertThat(arrayAdapter.getCount(), Matchers.greaterThan(0));
-  }
+
 }
 

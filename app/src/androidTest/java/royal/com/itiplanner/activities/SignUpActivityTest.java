@@ -100,7 +100,7 @@ public class SignUpActivityTest {
   public void isLoginPageDisplayedOnClickingNextButton() {
     onView(withId(R.id.edt_number)).perform(replaceText("9979797787"));
     onView(withId(R.id.edt_name)).perform(replaceText("Test"));
-    onView(withId(R.id.edt_email)).perform(replaceText("test123@test.com"));
+    onView(withId(R.id.edt_email)).perform(replaceText("test.1234@test.com"));
     onView(withId(R.id.edt_password)).perform(replaceText("test@1234"));
     Instrumentation.ActivityMonitor
         am = getInstrumentation().addMonitor(MainActivity.class.getName(), null, true);

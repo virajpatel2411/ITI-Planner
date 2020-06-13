@@ -105,10 +105,11 @@ public class SearchFragmentTest {
     View view = fragmentTestRule.getActivity().findViewById(R.id.list_search);
     Assert.assertThat(view, Matchers.instanceOf(ListView.class));
     ListView listView = (ListView) view;
-    onView(isRoot()).perform(waitId(R.id.list_search, TimeUnit.SECONDS.toMillis(20)));
+    onView(isRoot()).perform(waitId(R.id.list_search, TimeUnit.SECONDS.toMillis(10)));
     ListAdapter arrayAdapter = listView.getAdapter();
     Assert.assertThat(arrayAdapter, Matchers.instanceOf(ArrayAdapter.class));
     onView(withId(R.id.list_search)).perform(click());
     onView(withId(R.id.frag_itinerary)).check(ViewAssertions.matches(isDisplayed()));
   }
+
 }

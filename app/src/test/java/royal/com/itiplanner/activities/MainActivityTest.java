@@ -9,63 +9,52 @@ public class MainActivityTest {
   MainActivity mainActivity;
 
   @Before
-  public void init()
-  {
+  public void init() {
     mainActivity = new MainActivity();
   }
 
   @Test
-  public void emailBlankTest()
-  {
+  public void emailBlankTest() {
     Assert.assertFalse(mainActivity.validateEmail(""));
   }
 
   @Test
-  public void emailValidateTest1()
-  {
-   Assert.assertFalse(mainActivity.validateEmail("abc@gmail"));
+  public void emailValidateTest1() {
+    Assert.assertFalse(mainActivity.validateEmail("abc@gmail"));
   }
 
   @Test
-  public void emailValidateTest2()
-  {
-    Assert.assertFalse(mainActivity.validateEmail("abc@"));
-  }
-
-  @Test
-  public void emailCorrectTest()
-  {
-    Assert.assertTrue(mainActivity.validateEmail("abc@gmail.com"));
-  }
-
-  @Test
-  public void passwordIncorrect()
-  {
+  public void passwordIncorrect() {
     Assert.assertFalse(mainActivity.validatePassword(""));
   }
 
   @Test
-  public void passwordIsNotBlankTest()
-  {
+  public void passwordIsNotBlankTest() {
     Assert.assertTrue(mainActivity.validatePassword("abcd"));
   }
 
   @Test
-  public void passwordNotAppropriateTest1()
-  {
-    Assert.assertFalse(mainActivity.validateEmailAndPassword("abcd@gmail.com","abcdefgh"));
+  public void emailValidateTest2() {
+    Assert.assertFalse(mainActivity.validateEmail("abc@"));
   }
 
   @Test
-  public void passwordNotAppropriateTest2()
-  {
-    Assert.assertFalse(mainActivity.validateEmailAndPassword("abcd@gmail.com","1234567"));
+  public void emailCorrectTest() {
+    Assert.assertTrue(mainActivity.validateEmail("abc@gmail.com"));
   }
 
   @Test
-  public void passwordAppropriateTest()
-  {
-    Assert.assertTrue(mainActivity.validateEmailAndPassword("abcd@gmail.com","abcd1234"));
+  public void passwordNotAppropriateTest1() {
+    Assert.assertFalse(mainActivity.validateEmailAndPassword("abcd@gmail.com", "abcdefgh"));
   }
 
+  @Test
+  public void passwordNotAppropriateTest2() {
+    Assert.assertFalse(mainActivity.validateEmailAndPassword("abcd@gmail.com", "1234567"));
+  }
+
+  @Test
+  public void passwordAppropriateTest() {
+    Assert.assertTrue(mainActivity.validateEmailAndPassword("abcd@gmail.com", "abcd1234"));
+  }
 }

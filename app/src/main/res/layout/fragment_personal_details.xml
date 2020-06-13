@@ -22,7 +22,7 @@
 
 
   <LinearLayout
-      android:id="@+id/feedback_text"
+      android:id="@+id/details_text"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@+id/image_1"

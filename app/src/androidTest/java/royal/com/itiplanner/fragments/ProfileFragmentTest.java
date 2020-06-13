@@ -113,4 +113,5 @@ public class ProfileFragmentTest {
     onView(withId(R.id.list)).perform(click());
     onView(withId(R.id.feedback_frag)).check(ViewAssertions.matches(isDisplayed()));
   }
+
 }

@@ -181,39 +181,27 @@ public class ItineraryDisplayFragmentTest {
 
   @Test
   public void isRecyclerViewAdapterNotEmpty() {
-
     database = FirebaseDatabase.getInstance();
     myRef = database.getReference("Itinerary");
     myRef = myRef.child("Gujarat");
-
     states = new ArrayList<>();
     finalModels = new ArrayList<>();
     onView(isRoot()).perform(waitId(R.id.rec_display, TimeUnit.SECONDS.toMillis(20)));
     myRef.addValueEventListener(new ValueEventListener() {
       @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
           FinalModel finalModel = new FinalModel();
           finalModel = dataSnapshot1.getValue(FinalModel.class);
           finalModels.add(finalModel);
           states.add(dataSnapshot1.getKey());
         }
-
         Fragment fragment = new ItineraryDisplayFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("FINAL", (Serializable) finalModels);
         bundle.putStringArrayList("CITY", states);
-
         bundle.putString("STATE", "Gujarat");
-
         fragment.setArguments(bundle);
-
-        fragmentTestRule.getActivity()
-            .getSupportFragmentManager().beginTransaction()
-            .replace(R.id.frame, fragment)
-            .addToBackStack("homeFragment")
-            .commit();
-
+        fragmentTestRule.getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).addToBackStack("homeFragment").commit();
         View view = fragmentTestRule.getActivity().findViewById(R.id.rec_display);
         assertThat(view, Matchers.instanceOf(RecyclerView.class));
         RecyclerView recyclerView = (RecyclerView) view;

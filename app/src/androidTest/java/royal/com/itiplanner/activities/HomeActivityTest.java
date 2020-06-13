@@ -29,4 +29,5 @@ public class HomeActivityTest {
     View view = activityTestRule.getActivity().findViewById(R.id.btmbar);
     Assert.assertThat(view, Matchers.instanceOf(CoordinatorLayout.class));
   }
+
 }
