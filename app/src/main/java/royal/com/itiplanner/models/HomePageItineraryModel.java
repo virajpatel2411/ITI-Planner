@@ -1,12 +1,23 @@
 package royal.com.itiplanner.models;
 
+import java.util.ArrayList;
+
 public class HomePageItineraryModel {
 
   String amt;
-  String place;
+  ArrayList<String> place;
+  String city;
   String no_of_days;
   String no_of_people;
   String state;
+
+  public String getCity() {
+    return city;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
+  }
 
   public String getState() {
     return state;
@@ -24,11 +35,11 @@ public class HomePageItineraryModel {
     this.amt = amt;
   }
 
-  public String getPlace() {
-    return this.place;
+  public ArrayList<String> getPlace() {
+    return place;
   }
 
-  public void setPlace(final String place) {
+  public void setPlace(ArrayList<String> place) {
     this.place = place;
   }
 

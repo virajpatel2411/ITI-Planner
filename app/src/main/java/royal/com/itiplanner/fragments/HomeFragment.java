@@ -178,7 +178,7 @@ public class HomeFragment extends Fragment {
         for (i = 0; i < jsonArray.length(); i++) {
           JSONObject jsonObject = jsonArray.getJSONObject("" + i);
           HomePageItineraryModel homePageItineraryModel = new HomePageItineraryModel();
-          homePageItineraryModel.setPlace(jsonObject.getString("id"));
+          homePageItineraryModel.setCity(jsonObject.getString("id"));
           homePageItineraryModel.setAmt(jsonObject.getString("totalCost"));
           homePageItineraryModel.setNo_of_days(jsonObject.getString("daysCount"));
           JSONArray jsonArray1 = jsonObject.getJSONArray("places");
@@ -188,6 +188,7 @@ public class HomeFragment extends Fragment {
           }
           state = jsonObject.getString("city");
           homePageItineraryModel.setState(state);
+          homePageItineraryModel.setPlace(places);
           arrayList.add(homePageItineraryModel);
           states.add(state);
         }

@@ -41,7 +41,7 @@ public class RecyclerHomeAdapter extends RecyclerView.Adapter<RecyclerHomeAdapte
     Glide.with(context).load(imageViews.get(i)).into(viewHolder.imageView);
     viewHolder.txtNoOfPersons.setText(homePageItineraryModels.get(i).getNo_of_days());
     viewHolder.txtBudget.setText(homePageItineraryModels.get(i).getAmt());
-    viewHolder.txtPlace.setText(homePageItineraryModels.get(i).getPlace());
+    viewHolder.txtPlace.setText(homePageItineraryModels.get(i).getCity());
   }
 
   @Override
